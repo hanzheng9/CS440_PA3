@@ -72,7 +72,7 @@ public class CustomRewardFunction
         double current = 0.0;
         double max = 0.0;
 
-        for (int i=0; i<team.size(); i++) 
+        for(int i=0; i<team.size(); i++) 
         {
             PokemonView pokemon = team.getPokemonView(i);
             if(pokemon==null) 

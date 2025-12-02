@@ -4,10 +4,15 @@ package src.pas.pokemon.agents;
 // SYSTEM IMPORTS
 import net.sourceforge.argparse4j.inf.Namespace;
 
+import java.util.List;
+
 import edu.bu.pas.pokemon.agents.NeuralQAgent;
 import edu.bu.pas.pokemon.agents.senses.SensorArray;
 import edu.bu.pas.pokemon.core.Battle.BattleView;
 import edu.bu.pas.pokemon.core.Move.MoveView;
+import edu.bu.pas.pokemon.core.Pokemon.PokemonView;
+import edu.bu.pas.pokemon.core.Team.TeamView;
+import edu.bu.pas.pokemon.core.enums.Stat;
 import edu.bu.pas.pokemon.linalg.Matrix;
 import edu.bu.pas.pokemon.nn.Model;
 import edu.bu.pas.pokemon.nn.models.Sequential;
@@ -57,9 +62,10 @@ public class PolicyAgent
     {
         // TODO: create your neural network
 
-        // currently this creates a one-hidden-layer network
         Sequential qFunction = new Sequential();
         qFunction.add(new Dense(64, 128));
+        qFunction.add(new Tanh());
+        qFunction.add(new Dense(128, 128));
         qFunction.add(new Tanh());
         qFunction.add(new Dense(128, 1));
 
@@ -71,15 +77,34 @@ public class PolicyAgent
     {
         // TODO: change this to something more intelligent!
 
-        // find a pokemon that is alive
-        for(int idx = 0; idx < this.getMyTeamView(view).size(); ++idx)
+        TeamView myTeam = this.getMyTeamView(view);
+        int bestIdx = -1;
+        int bestHP = -1;
+
+        for(int i=0; i<myTeam.size(); i++)
         {
-            if(!this.getMyTeamView(view).getPokemonView(idx).hasFainted())
+            PokemonView pokemon = myTeam.getPokemonView(i);
+
+            if(!pokemon.hasFainted())
             {
-                return idx;
+                int currHP = pokemon.getCurrentStat(Stat.HP);
+
+                if(currHP>bestHP)
+                {
+                    bestHP = currHP;
+                    bestIdx = i;
+                }
             }
         }
-        return null;
+
+        if(bestIdx>=0)
+        {
+            return bestIdx;
+        }
+        else
+        {
+            return null; 
+        }
     }
 
     @Override
@@ -97,6 +122,21 @@ public class PolicyAgent
 
         // HOW that randomness works and how often you do it are up to you, but it *will* affect the quality of your
         // learned model whether you do it or not!
+
+        double epsilon = 0.15;
+        TeamView myTeam = this.getMyTeamView(view);
+        PokemonView active = myTeam.getActivePokemonView();
+        List<MoveView> moves = active.getAvailableMoves();
+
+        if(moves==null || moves.isEmpty())
+            return this.argmax(view);
+
+        if(Math.random()<epsilon)
+        {
+            int r = (int)(Math.random() * moves.size());
+            return moves.get(r);
+        }
+
         return this.argmax(view);
     }
 
