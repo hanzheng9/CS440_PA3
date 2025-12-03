@@ -37,10 +37,35 @@ def main() -> None:
         raise Exception("ERROR: logfile [%s] does not exist!" % args.logfile)
 
     data: np.ndarray = load(args.logfile)
-    plt.plot(data[:, 0], data[:, 1])
+    
+    # Calculate running average
+    running_avg = np.cumsum(data[:, 1]) / np.arange(1, len(data[:, 1]) + 1)
+    ç
+    # Find the largest value
+    max_idx = np.argmax(data[:, 1])
+    max_cycle = data[max_idx, 0]
+    max_value = data[max_idx, 1]
+    
+    print(f"Largest utility value: {max_value:.4f} at cycle {max_cycle}")
+    
+    # Plot both original data and running average
+    plt.plot(data[:, 0], data[:, 1], label='Raw Utility')
+    plt.plot(data[:, 0], running_avg, label='Running Average', linestyle='--', linewidth=2)
+    
+    # Mark the largest point
+    plt.scatter([max_cycle], [max_value], color='red', s=100, zorder=5, 
+                label=f'Max: {max_value:.2f} at {max_cycle}')
+    
+    # Add a horizontal line at the maximum value
+    plt.axhline(y=max_value, color='red', linestyle=':', alpha=0.5, linewidth=1)
+    
+    plt.xlabel('Cycle')
+    plt.ylabel('Utility')
+    plt.title('Utility over Time with Running Average')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
     plt.show()
 
 
 if __name__ == "__main__":
     main()
-
