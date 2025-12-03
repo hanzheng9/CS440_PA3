@@ -40,7 +40,7 @@ def main() -> None:
     
     # Calculate running average
     running_avg = np.cumsum(data[:, 1]) / np.arange(1, len(data[:, 1]) + 1)
-    ç
+    
     # Find the largest value
     max_idx = np.argmax(data[:, 1])
     max_cycle = data[max_idx, 0]
