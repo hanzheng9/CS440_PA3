@@ -163,11 +163,22 @@ public class PolicyAgent
         if(gameCount%50==0)
         {
             double avgDiff = cumulativeHPDiff / gameCount;
-            System.out.println("=== Training Stats after " + gameCount + " games ===");
-            System.out.println("Wins: " + wins +  " Losses: " + losses + " Ties: " + ties);
-            System.out.printf("Win Rate: %.2f%%\n", (100.0 * wins / gameCount));
-            System.out.printf("Avg HP Advantage: %.4f\n", avgDiff);
-            System.out.println("===============================================");
+            String log = "=== Training Stats after " + gameCount + " games ===\n"
+                    + "Wins: " + wins + " Losses: " + losses + " Ties: " + ties + "\n"
+                    + String.format("Win Rate: %.2f%%\n", (100.0 * wins / gameCount))
+                    + String.format("Avg HP Advantage: %.4f\n", avgDiff)
+                    + "===============================================\n";
+
+            System.out.print(log); 
+
+            try(java.io.FileWriter fw = new java.io.FileWriter("training_stats.log", true))
+            {
+                fw.write(log);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 
