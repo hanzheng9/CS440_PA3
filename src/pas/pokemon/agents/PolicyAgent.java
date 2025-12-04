@@ -29,6 +29,11 @@ import src.pas.pokemon.senses.CustomSensorArray;
 public class PolicyAgent
     extends NeuralQAgent
 {
+    private int gameCount = 0;
+    private int wins = 0;
+    private int losses = 0;
+    private int ties = 0;
+    private double cumulativeHPDiff = 0.0;
 
     public PolicyAgent()
     {
@@ -123,7 +128,7 @@ public class PolicyAgent
         // HOW that randomness works and how often you do it are up to you, but it *will* affect the quality of your
         // learned model whether you do it or not!
 
-        double epsilon = 0.15;
+        double epsilon = 0.05;
         TeamView myTeam = this.getMyTeamView(view);
         PokemonView active = myTeam.getActivePokemonView();
         List<MoveView> moves = active.getAvailableMoves();
@@ -143,8 +148,56 @@ public class PolicyAgent
     @Override
     public void afterGameEnds(BattleView view)
     {
+        gameCount++;
+        double myHP = totalHPFraction(this.getMyTeamView(view));
+        double oppHP = totalHPFraction(getOpponentTeamView(view));
 
+        if(myHP>oppHP) 
+            wins++;
+        else if(myHP<oppHP) 
+            losses++;
+        else 
+            ties++;
+        cumulativeHPDiff += (myHP - oppHP);
+
+        if(gameCount%50==0)
+        {
+            double avgDiff = cumulativeHPDiff / gameCount;
+            System.out.println("=== Training Stats after " + gameCount + " games ===");
+            System.out.println("Wins: " + wins +  " Losses: " + losses + " Ties: " + ties);
+            System.out.printf("Win Rate: %.2f%%\n", (100.0 * wins / gameCount));
+            System.out.printf("Avg HP Advantage: %.4f\n", avgDiff);
+            System.out.println("===============================================");
+        }
     }
 
+    public TeamView getOpponentTeamView(BattleView view)
+    {
+        int myIdx = this.getMyTeamIdx(); 
+        int oppIdx = (myIdx+1) % 2;   
+        return view.getTeamView(oppIdx);
+    }
+
+    private double totalHPFraction(TeamView team)
+    {
+        double current = 0.0;
+        double max = 0.0;
+
+        for(int i=0; i<team.size(); i++)
+        {
+            PokemonView p = team.getPokemonView(i);
+            max += p.getInitialStat(Stat.HP);
+            current += p.getCurrentStat(Stat.HP);
+        }
+
+        if(max>0.0)
+        {
+            return current/max;
+        }
+        else
+        {
+            return 0.0;
+        }
+    }
 }
 
