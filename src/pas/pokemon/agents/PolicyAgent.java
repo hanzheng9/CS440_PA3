@@ -139,7 +139,7 @@ public class PolicyAgent
             return moves.get((int)(Math.random() * moves.size()));
         }
 
-        double epsilon = 0.15;
+        double epsilon = 0.4;
         TeamView myTeam = this.getMyTeamView(view);
         PokemonView active = myTeam.getActivePokemonView();
         List<MoveView> moves = active.getAvailableMoves();

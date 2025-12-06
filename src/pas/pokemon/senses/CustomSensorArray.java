@@ -51,6 +51,16 @@ public class CustomSensorArray
         f[i++] = opp.getCurrentStat(Stat.SPATK)/255.0;
         f[i++] = opp.getCurrentStat(Stat.SPD)/255.0;
 
+        if(my.getCurrentStat(Stat.SPD)>opp.getCurrentStat(Stat.SPD))
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+
+        double dmgFlag = 0.0;
+        if(action.getCategory()!=Category.STATUS)
+            dmgFlag = 1.0;
+        f[i++] = dmgFlag;
+
         if(my.getCurrentType1()==Type.NORMAL || my.getCurrentType2()==Type.NORMAL)
             f[i++] = 1.0;
         else
@@ -216,13 +226,6 @@ public class CustomSensorArray
             if(action.getCategory()!=Category.STATUS)
                 damage = 1.0;
             f[i++] = damage;
-        }
-        else
-        {
-            f[i++] = 0.0;
-            f[i++] = 1.0;
-            f[i++] = 0.5;
-            f[i++] = 0.0;
         }
 
         Matrix m = Matrix.zeros(1, f.length);
