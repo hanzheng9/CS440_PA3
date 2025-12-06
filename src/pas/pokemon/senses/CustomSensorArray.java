@@ -51,56 +51,161 @@ public class CustomSensorArray
         f[i++] = opp.getCurrentStat(Stat.SPATK)/255.0;
         f[i++] = opp.getCurrentStat(Stat.SPD)/255.0;
 
-        for(Type type: Type.values()) 
-        {
-            double val = 0.0;
-            if(my.getCurrentType1()==type || my.getCurrentType2()==type) 
-                val = 1.0;
-            f[i++] = val;
-        }
-        for(Type type: Type.values()) 
-        {
-            double val = 0.0;
-            if (opp.getCurrentType1()==type || opp.getCurrentType2()==type) 
-                val = 1.0;
-            f[i++] = val;
-        }
+        if(my.getCurrentType1()==Type.NORMAL || my.getCurrentType2()==Type.NORMAL)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.FIGHTING || my.getCurrentType2()==Type.FIGHTING)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.FLYING || my.getCurrentType2()==Type.FLYING)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.POISON || my.getCurrentType2()==Type.POISON)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.GROUND || my.getCurrentType2()==Type.GROUND)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.ROCK || my.getCurrentType2()==Type.ROCK)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.BUG || my.getCurrentType2()==Type.BUG)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.GHOST || my.getCurrentType2()==Type.GHOST)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.FIRE || my.getCurrentType2()==Type.FIRE)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.WATER || my.getCurrentType2()==Type.WATER)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.GRASS || my.getCurrentType2()==Type.GRASS)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.ELECTRIC || my.getCurrentType2()==Type.ELECTRIC)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.PSYCHIC || my.getCurrentType2()==Type.PSYCHIC)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.ICE || my.getCurrentType2()==Type.ICE)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(my.getCurrentType1()==Type.DRAGON || my.getCurrentType2()==Type.DRAGON)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.NORMAL || opp.getCurrentType2()==Type.NORMAL)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.FIGHTING || opp.getCurrentType2()==Type.FIGHTING)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.FLYING || opp.getCurrentType2()==Type.FLYING)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.POISON || opp.getCurrentType2()==Type.POISON)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.GROUND || opp.getCurrentType2()==Type.GROUND)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.ROCK || opp.getCurrentType2()==Type.ROCK)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.BUG || opp.getCurrentType2()==Type.BUG)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.GHOST || opp.getCurrentType2()==Type.GHOST)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.FIRE || opp.getCurrentType2()==Type.FIRE)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.WATER || opp.getCurrentType2()==Type.WATER)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.GRASS || opp.getCurrentType2()==Type.GRASS)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.ELECTRIC || opp.getCurrentType2()==Type.ELECTRIC)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.PSYCHIC || opp.getCurrentType2()==Type.PSYCHIC)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.ICE || opp.getCurrentType2()==Type.ICE)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
+        if(opp.getCurrentType1()==Type.DRAGON || opp.getCurrentType2()==Type.DRAGON)
+            f[i++] = 1.0;
+        else
+            f[i++] = 0.0;
 
-        // status
         double myPar = 0.0;
         if(my.getNonVolatileStatus()==NonVolatileStatus.PARALYSIS)
-             myPar = 1.0;
+            myPar = 1.0;
         f[i++] = myPar;
         double mySleep = 0.0;
-        if (my.getNonVolatileStatus()==NonVolatileStatus.SLEEP) 
+        if(my.getNonVolatileStatus()==NonVolatileStatus.SLEEP)
             mySleep = 1.0;
         f[i++] = mySleep;
         double myFreeze = 0.0;
-        if (my.getNonVolatileStatus()==NonVolatileStatus.FREEZE) 
+        if(my.getNonVolatileStatus()==NonVolatileStatus.FREEZE)
             myFreeze = 1.0;
         f[i++] = myFreeze;
         double oppPar = 0.0;
-        if(opp.getNonVolatileStatus()==NonVolatileStatus.PARALYSIS) 
+        if(opp.getNonVolatileStatus()==NonVolatileStatus.PARALYSIS)
             oppPar = 1.0;
         f[i++] = oppPar;
         double oppSleep = 0.0;
-        if(opp.getNonVolatileStatus()==NonVolatileStatus.SLEEP) 
+        if(opp.getNonVolatileStatus()==NonVolatileStatus.SLEEP)
             oppSleep = 1.0;
         f[i++] = oppSleep;
         double oppFreeze = 0.0;
-        if(opp.getNonVolatileStatus()==NonVolatileStatus.FREEZE) 
+        if(opp.getNonVolatileStatus()==NonVolatileStatus.FREEZE)
             oppFreeze = 1.0;
         f[i++] = oppFreeze;
 
-        if(action!=null) 
+        if(action!=null)
         {
             double power = 0.0;
-            if(action.getPower()!=null) 
+            if(action.getPower()!=null)
                 power = action.getPower()/200.0;
             f[i++] = power;
 
             double accuracy = 0.0;
-            if(action.getAccuracy()!=null) 
+            if(action.getAccuracy()!=null)
                 accuracy = action.getAccuracy()/100.0;
             f[i++] = accuracy;
 
@@ -108,11 +213,11 @@ public class CustomSensorArray
             f[i++] = priority;
 
             double damage = 0.0;
-            if(action.getCategory()!=Category.STATUS) 
+            if(action.getCategory()!=Category.STATUS)
                 damage = 1.0;
             f[i++] = damage;
-        } 
-        else 
+        }
+        else
         {
             f[i++] = 0.0;
             f[i++] = 1.0;
@@ -121,9 +226,10 @@ public class CustomSensorArray
         }
 
         Matrix m = Matrix.zeros(1, f.length);
-        for(int j=0; j<f.length; j++) 
+        for(int j=0; j<f.length; j++)
             m.set(0, j, f[j]);
-        
+
         return m;
+
     }
 }

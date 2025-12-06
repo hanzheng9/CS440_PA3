@@ -29,11 +29,6 @@ import src.pas.pokemon.senses.CustomSensorArray;
 public class PolicyAgent
     extends NeuralQAgent
 {
-    private int gameCount = 0;
-    private int wins = 0;
-    private int losses = 0;
-    private int ties = 0;
-    private double cumulativeHPDiff = 0.0;
 
     public PolicyAgent()
     {
@@ -73,11 +68,11 @@ public class PolicyAgent
         // TODO: create your neural network
 
         Sequential qFunction = new Sequential();
-        qFunction.add(new Dense(64, 128));
+        qFunction.add(new Dense(64, 32));
         qFunction.add(new Tanh());
-        qFunction.add(new Dense(128, 128));
+        qFunction.add(new Dense(32, 16));
         qFunction.add(new Tanh());
-        qFunction.add(new Dense(128, 1));
+        qFunction.add(new Dense(16, 1));
 
         return qFunction;
     }
@@ -144,7 +139,7 @@ public class PolicyAgent
             return moves.get((int)(Math.random() * moves.size()));
         }
 
-        double epsilon = 0.2;
+        double epsilon = 0.15;
         TeamView myTeam = this.getMyTeamView(view);
         PokemonView active = myTeam.getActivePokemonView();
         List<MoveView> moves = active.getAvailableMoves();
@@ -164,39 +159,7 @@ public class PolicyAgent
     @Override
     public void afterGameEnds(BattleView view)
     {
-        System.out.println("[DEBUG] afterGameEnds() called — game finished!");
-        gameCount++;
-        double myHP = totalHPFraction(this.getMyTeamView(view));
-        double oppHP = totalHPFraction(getOpponentTeamView(view));
 
-        if(myHP>oppHP) 
-            wins++;
-        else if(myHP<oppHP) 
-            losses++;
-        else 
-            ties++;
-        cumulativeHPDiff += (myHP - oppHP);
-
-        if(gameCount%50==0)
-        {
-            double avgDiff = cumulativeHPDiff / gameCount;
-            String log = "=== Training Stats after " + gameCount + " games ===\n"
-                    + "Wins: " + wins + " Losses: " + losses + " Ties: " + ties + "\n"
-                    + String.format("Win Rate: %.2f%%\n", (100.0 * wins / gameCount))
-                    + String.format("Avg HP Advantage: %.4f\n", avgDiff)
-                    + "===============================================\n";
-
-            System.out.print(log); 
-
-            try(java.io.FileWriter fw = new java.io.FileWriter("training_stats.log", true))
-            {
-                fw.write(log);
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
     }
 
     public TeamView getOpponentTeamView(BattleView view)
@@ -204,28 +167,6 @@ public class PolicyAgent
         int myIdx = this.getMyTeamIdx(); 
         int oppIdx = (myIdx+1) % 2;   
         return view.getTeamView(oppIdx);
-    }
-
-    private double totalHPFraction(TeamView team)
-    {
-        double current = 0.0;
-        double max = 0.0;
-
-        for(int i=0; i<team.size(); i++)
-        {
-            PokemonView p = team.getPokemonView(i);
-            max += p.getInitialStat(Stat.HP);
-            current += p.getCurrentStat(Stat.HP);
-        }
-
-        if(max>0.0)
-        {
-            return current/max;
-        }
-        else
-        {
-            return 0.0;
-        }
     }
 }
 
