@@ -43,15 +43,15 @@ public class CustomRewardFunction
         TeamView oppTeam = state.getTeam2View();
         double myHPFrac = getTeamHPFraction(myTeam);
         double oppHPFrac = getTeamHPFraction(oppTeam);
-        double diff = 2.0 * (myHPFrac - oppHPFrac);
+        double diff = (myHPFrac - oppHPFrac);
         double terminalBonus = 0.0;
 
         if(state.isOver())
         {
             if(myHPFrac>oppHPFrac)
-                terminalBonus = 2.0;      
+                terminalBonus = 1.0;      
             else if(myHPFrac<oppHPFrac)
-                terminalBonus = -2.0;   
+                terminalBonus = -1.0;   
             else
                 terminalBonus = 0.0;      
         }

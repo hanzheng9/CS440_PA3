@@ -29,6 +29,7 @@ import src.pas.pokemon.senses.CustomSensorArray;
 public class PolicyAgent
     extends NeuralQAgent
 {
+    private int moveCount = 0;
 
     public PolicyAgent()
     {
@@ -139,7 +140,9 @@ public class PolicyAgent
             return moves.get((int)(Math.random() * moves.size()));
         }
 
-        double epsilon = 0.4;
+        double epsilon = 0.4 * Math.exp(-0.0005 * moveCount);
+        if(epsilon<0.05)
+            epsilon = 0.05;
         TeamView myTeam = this.getMyTeamView(view);
         PokemonView active = myTeam.getActivePokemonView();
         List<MoveView> moves = active.getAvailableMoves();
