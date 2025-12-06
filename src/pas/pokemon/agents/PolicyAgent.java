@@ -93,7 +93,17 @@ public class PolicyAgent
                 continue;
             double hpScore = pokemon.getCurrentStat(Stat.HP)/(double)pokemon.getInitialStat(Stat.HP);
             double typeScore = typeEffectivenessScore(pokemon, oppActive);
-            double totalScore = hpScore + typeScore;
+            double speedScore = 0.0;
+
+            if(pokemon.getCurrentStat(Stat.SPD)>oppActive.getCurrentStat(Stat.SPD))
+                speedScore = 0.2;
+            double statusPenalty = 0.0;
+            if(pokemon.getNonVolatileStatus() != null)
+                statusPenalty = -0.3;
+            double lowHpPenalty = 0.0;
+            if(hpScore < 0.30)
+                lowHpPenalty = -0.5;
+            double totalScore = hpScore + typeScore + speedScore + statusPenalty + lowHpPenalty;
 
             if(totalScore>bestScore)
             {
@@ -105,7 +115,7 @@ public class PolicyAgent
         if(bestIdx>=0)
             return bestIdx;
         else
-            return null; 
+            return null;
     }
 
     private double typeEffectivenessScore(PokemonView myPokemon, PokemonView oppPokemon)
@@ -189,6 +199,35 @@ public class PolicyAgent
 
         if(Math.random()<epsilon)
         {
+            PokemonView oppActive = this.getOpponentTeamView(view).getActivePokemonView();
+            MoveView bestMove = null;
+            double bestScore = -1e9;
+
+            for(MoveView move: moves)
+            {
+                double score = 0.0;
+                score += 0.3 * CustomSensorArray.stab(active, move);
+                score += 0.5 * CustomSensorArray.superEffective(oppActive, move);
+                score -= 0.4 * CustomSensorArray.notVeryEffective(oppActive, move);
+
+                if(move.getPower()!=null)
+                    score += 0.002 * move.getPower();
+
+                if(move.getAccuracy()!=null)
+                    score += 0.001 * move.getAccuracy();
+
+                score += 0.0001 * Math.random();
+
+                if(score>bestScore)
+                {
+                    bestScore = score;
+                    bestMove = move;
+                }
+            }
+
+            if(bestMove!=null)
+                return bestMove;
+
             int r = (int)(Math.random() * moves.size());
             return moves.get(r);
         }
