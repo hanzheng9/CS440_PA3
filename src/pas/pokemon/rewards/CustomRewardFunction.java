@@ -130,25 +130,6 @@ public class CustomRewardFunction
         if(reward < getLowerBound())
             reward = getLowerBound();
 
-        if(action != null)
-        {
-            PokemonView myPokemon = myTeamBefore.getActivePokemonView();
-            PokemonView oppPokemon = oppTeamBefore.getActivePokemonView();
-
-            if(action.getCategory() != Category.STATUS)
-            {
-                if(CustomSensorArray.stab(myPokemon, action)>0)
-                    reward += 0.05;
-
-                if(CustomSensorArray.superEffective(oppPokemon, action)>0)
-                    reward += 0.1;
-
-                if(CustomSensorArray.notVeryEffective(oppPokemon, action)>0)
-                    reward -= 0.1;
-            }
-        }
-
-
         return reward;
     }
 }
