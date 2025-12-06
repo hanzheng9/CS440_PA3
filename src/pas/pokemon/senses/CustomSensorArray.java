@@ -249,7 +249,7 @@ public class CustomSensorArray
         return m;
     }
 
-    private double stab(PokemonView attacker, MoveView move)
+    public static double stab(PokemonView attacker, MoveView move)
     {
         if(move==null)
             return 0.0;
@@ -272,7 +272,7 @@ public class CustomSensorArray
         return 0.0;
     }
 
-    private double superEffective(PokemonView defender, MoveView move)
+    public static double superEffective(PokemonView defender, MoveView move)
     {
         if(move==null)
             return 0.0;
@@ -292,7 +292,7 @@ public class CustomSensorArray
         return 0.0;
     }
 
-    private double notVeryEffective(PokemonView defender, MoveView move)
+    public static double notVeryEffective(PokemonView defender, MoveView move)
     {
         if(move==null)
             return 0.0;
@@ -312,7 +312,7 @@ public class CustomSensorArray
         return 0.0;
     }
 
-    private double typeEffectiveness(Type moveType, Type targetType)
+    public static double typeEffectiveness(Type moveType, Type targetType)
     {
         if(moveType==null || targetType==null)
             return 1.0;

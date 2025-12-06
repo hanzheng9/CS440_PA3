@@ -12,6 +12,8 @@ import edu.bu.pas.pokemon.core.Move.MoveView;
 import edu.bu.pas.pokemon.core.Pokemon.PokemonView;
 import edu.bu.pas.pokemon.core.Team.TeamView;
 import edu.bu.pas.pokemon.core.enums.Stat;
+import edu.bu.pas.pokemon.core.Move.Category;
+import src.pas.pokemon.senses.CustomSensorArray;
 
 
 public class CustomRewardFunction
@@ -104,8 +106,8 @@ public class CustomRewardFunction
         double oppHPAfter = getTeamHPFraction(oppTeamAfter);
         double reward = 0.0;
 
-        reward += (oppHPBefore - oppHPAfter);
-        reward -= (myHPBefore - myHPAfter);
+        reward += 10.0 * (oppHPBefore - oppHPAfter);
+        reward -= 10.0 * (myHPBefore - myHPAfter);
 
         if(!nextState.isOver())
             reward -= 0.01;
@@ -118,10 +120,34 @@ public class CustomRewardFunction
                 reward -= 1.0;
         }
 
+        if(oppHPAfter==0 && oppHPBefore>0)
+            reward += 0.5;
+        if(myHPAfter==0 && myHPBefore>0)
+            reward -= 0.5;
+
         if(reward > getUpperBound())
             reward = getUpperBound();
         if(reward < getLowerBound())
             reward = getLowerBound();
+
+        if(action != null)
+        {
+            PokemonView myPokemon = myTeamBefore.getActivePokemonView();
+            PokemonView oppPokemon = oppTeamBefore.getActivePokemonView();
+
+            if(action.getCategory() != Category.STATUS)
+            {
+                if(CustomSensorArray.stab(myPokemon, action)>0)
+                    reward += 0.05;
+
+                if(CustomSensorArray.superEffective(oppPokemon, action)>0)
+                    reward += 0.1;
+
+                if(CustomSensorArray.notVeryEffective(oppPokemon, action)>0)
+                    reward -= 0.1;
+            }
+        }
+
 
         return reward;
     }

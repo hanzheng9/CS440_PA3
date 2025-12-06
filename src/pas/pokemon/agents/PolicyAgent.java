@@ -176,7 +176,6 @@ public class PolicyAgent
         }
 
         moveCount++;
-
         double epsilon = 0.3 * Math.exp(-0.0004 * moveCount);
         if(epsilon<0.05)
             epsilon = 0.05;
