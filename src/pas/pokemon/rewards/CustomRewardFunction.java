@@ -20,50 +20,35 @@ public class CustomRewardFunction
 
     public CustomRewardFunction()
     {
-        super(RewardType.STATE); // currently configured to produce rewards as a function of the state
+        super(RewardType.STATE_ACTION_STATE);
     }
 
     public double getLowerBound()
     {
-        // TODO: change this. Reward values must be finite!
         return -3.0;
     }
 
     public double getUpperBound()
     {
-        // TODO: change this. Reward values must be finite!
         return 3.0;
     }
 
     public double getStateReward(final BattleView state)
     {
-        if(state==null) 
+        if(state==null)
             return 0.0;
         TeamView myTeam = state.getTeam1View();
         TeamView oppTeam = state.getTeam2View();
         double myHPFrac = getTeamHPFraction(myTeam);
         double oppHPFrac = getTeamHPFraction(oppTeam);
-        double diff = (myHPFrac - oppHPFrac);
-        double terminalBonus = 0.0;
+        double value = myHPFrac - oppHPFrac;
 
-        if(state.isOver())
-        {
-            if(myHPFrac>oppHPFrac)
-                terminalBonus = 1.0;      
-            else if(myHPFrac<oppHPFrac)
-                terminalBonus = -1.0;   
-            else
-                terminalBonus = 0.0;      
-        }
+        if(value>getUpperBound())
+            value = getUpperBound();
+        if(value<getLowerBound())
+            value = getLowerBound();
 
-        double rewards = diff + terminalBonus;
-
-        if(rewards > getUpperBound())
-            rewards = getUpperBound();
-        if(rewards < getLowerBound())
-            rewards = getLowerBound();
-
-        return rewards;
+        return value;
     }
 
     private double getTeamHPFraction(final TeamView team) 
@@ -106,6 +91,38 @@ public class CustomRewardFunction
                                             final MoveView action,
                                             final BattleView nextState)
     {
-        return getStateReward(nextState);
+        if(state==null || nextState==null)
+            return 0.0;
+
+        TeamView myTeamBefore = state.getTeam1View();
+        TeamView oppTeamBefore = state.getTeam2View();
+        TeamView myTeamAfter = nextState.getTeam1View();
+        TeamView oppTeamAfter = nextState.getTeam2View();
+        double myHPBefore = getTeamHPFraction(myTeamBefore);
+        double oppHPBefore = getTeamHPFraction(oppTeamBefore);
+        double myHPAfter = getTeamHPFraction(myTeamAfter);
+        double oppHPAfter = getTeamHPFraction(oppTeamAfter);
+        double reward = 0.0;
+
+        reward += (oppHPBefore - oppHPAfter);
+        reward -= (myHPBefore - myHPAfter);
+
+        if(!nextState.isOver())
+            reward -= 0.01;
+
+        if(nextState.isOver())
+        {
+            if(myHPAfter>oppHPAfter)
+                reward += 1.0;
+            else if(myHPAfter<oppHPAfter)
+                reward -= 1.0;
+        }
+
+        if(reward > getUpperBound())
+            reward = getUpperBound();
+        if(reward < getLowerBound())
+            reward = getLowerBound();
+
+        return reward;
     }
 }

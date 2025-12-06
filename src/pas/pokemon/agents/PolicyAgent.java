@@ -13,13 +13,12 @@ import edu.bu.pas.pokemon.core.Move.MoveView;
 import edu.bu.pas.pokemon.core.Pokemon.PokemonView;
 import edu.bu.pas.pokemon.core.Team.TeamView;
 import edu.bu.pas.pokemon.core.enums.Stat;
+import edu.bu.pas.pokemon.core.enums.Type;
 import edu.bu.pas.pokemon.linalg.Matrix;
 import edu.bu.pas.pokemon.nn.Model;
 import edu.bu.pas.pokemon.nn.models.Sequential;
 import edu.bu.pas.pokemon.nn.layers.Dense; // fully connected layer
-import edu.bu.pas.pokemon.nn.layers.ReLU;  // some activations (below too)
 import edu.bu.pas.pokemon.nn.layers.Tanh;
-import edu.bu.pas.pokemon.nn.layers.Sigmoid;
 
 
 // JAVA PROJECT IMPORTS
@@ -81,36 +80,72 @@ public class PolicyAgent
     @Override
     public Integer chooseNextPokemon(BattleView view)
     {
-        // TODO: change this to something more intelligent!
-
         TeamView myTeam = this.getMyTeamView(view);
+        TeamView oppTeam = this.getOpponentTeamView(view);
+        PokemonView oppActive = oppTeam.getActivePokemonView();
         int bestIdx = -1;
-        int bestHP = -1;
+        double bestScore = -999.0;
 
         for(int i=0; i<myTeam.size(); i++)
         {
             PokemonView pokemon = myTeam.getPokemonView(i);
+            if(pokemon.hasFainted())
+                continue;
+            double hpScore = pokemon.getCurrentStat(Stat.HP)/(double)pokemon.getInitialStat(Stat.HP);
+            double typeScore = typeEffectivenessScore(pokemon, oppActive);
+            double totalScore = hpScore + typeScore;
 
-            if(!pokemon.hasFainted())
+            if(totalScore>bestScore)
             {
-                int currHP = pokemon.getCurrentStat(Stat.HP);
-
-                if(currHP>bestHP)
-                {
-                    bestHP = currHP;
-                    bestIdx = i;
-                }
+                bestScore = totalScore;
+                bestIdx = i;
             }
         }
 
         if(bestIdx>=0)
-        {
             return bestIdx;
-        }
         else
-        {
             return null; 
-        }
+    }
+
+    private double typeEffectivenessScore(PokemonView myPokemon, PokemonView oppPokemon)
+    {
+        Type myType1 = myPokemon.getCurrentType1();
+        Type myType2 = myPokemon.getCurrentType2();
+        Type oppType1 = oppPokemon.getCurrentType1();
+        Type oppType2 = oppPokemon.getCurrentType2();
+        double score = 0.0;
+
+        score += simpleEffectiveness(myType1, oppType1);
+        score += simpleEffectiveness(myType1, oppType2);
+        score += simpleEffectiveness(myType2, oppType1);
+        score += simpleEffectiveness(myType2, oppType2);
+
+        return score;
+    }
+
+    private double simpleEffectiveness(Type attackingType, Type defendingType)
+    {
+        if(attackingType==null || defendingType==null)
+            return 0.0;
+        if(attackingType==Type.GRASS && defendingType==Type.WATER)
+            return 0.3;
+        if(attackingType==Type.WATER && defendingType==Type.FIRE)
+            return 0.3;
+        if(attackingType==Type.FIRE && defendingType==Type.GRASS)
+            return 0.3;
+        if(attackingType==Type.FIGHTING && defendingType==Type.NORMAL)
+            return 0.3;
+        if(attackingType==Type.GRASS && defendingType==Type.FIRE)
+            return -0.3;
+        if(attackingType==Type.WATER && defendingType==Type.GRASS)
+            return -0.3;
+        if(attackingType==Type.FIRE && defendingType==Type.WATER)
+            return -0.3;
+        if(attackingType==Type.NORMAL && defendingType==Type.GHOST)
+            return -0.3;
+
+        return 0.0;
     }
 
     @Override
@@ -140,9 +175,12 @@ public class PolicyAgent
             return moves.get((int)(Math.random() * moves.size()));
         }
 
-        double epsilon = 0;
-        // if(epsilon<0.05)
-        //     epsilon = 0.05;
+        moveCount++;
+
+        double epsilon = 0.3 * Math.exp(-0.0004 * moveCount);
+        if(epsilon<0.05)
+            epsilon = 0.05;
+
         TeamView myTeam = this.getMyTeamView(view);
         PokemonView active = myTeam.getActivePokemonView();
         List<MoveView> moves = active.getAvailableMoves();
@@ -162,7 +200,7 @@ public class PolicyAgent
     @Override
     public void afterGameEnds(BattleView view)
     {
-
+        moveCount = 0;
     }
 
     public TeamView getOpponentTeamView(BattleView view)
@@ -172,4 +210,5 @@ public class PolicyAgent
         return view.getTeamView(oppIdx);
     }
 }
+
 
