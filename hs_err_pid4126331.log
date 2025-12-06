@@ -1,0 +1,1859 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 12288 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2781), pid=4126331, tid=0x00007faca2923700
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_411) (build 1.8.0_411-b09)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.411-b09 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fac9c009000):  JavaThread "Unknown thread" [_thread_in_vm, id=4126332, stack(0x00007faca2824000,0x00007faca2924000)]
+
+Stack: [0x00007faca2824000,0x00007faca2924000],  sp=0x00007faca2922a20,  free space=1018k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xaba417]  VMError::report_and_die()+0x247
+V  [libjvm.so+0x4ddbe7]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*)+0x77
+V  [libjvm.so+0x912006]  os::pd_commit_memory(char*, unsigned long, bool)+0xd6
+V  [libjvm.so+0x90c6bf]  os::commit_memory(char*, unsigned long, bool)+0x1f
+V  [libjvm.so+0xa5b54a]  JavaThread::create_stack_guard_pages()+0x6a
+V  [libjvm.so+0x6c687f]  attach_current_thread.part.0+0x7f
+V  [libjvm.so+0x6b8e52]  jni_DestroyJavaVM+0x42
+C  [libjli.so+0x8258]  JavaMain+0x798
+C  [libpthread.so.0+0x81ca]  start_thread+0xea
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007fac9df99000 JavaThread "process reaper" daemon [_thread_blocked, id=4126352, stack(0x00007faca0058000,0x00007faca0091000)]
+  0x00007fac9de4a000 JavaThread "Service Thread" daemon [_thread_blocked, id=4126349, stack(0x00007fac8339e000,0x00007fac8349f000)]
+  0x00007fac9de35000 JavaThread "C1 CompilerThread3" daemon [_thread_blocked, id=4126348, stack(0x00007fac834a0000,0x00007fac835a0000)]
+  0x00007fac9de32800 JavaThread "C2 CompilerThread2" daemon [_thread_blocked, id=4126347, stack(0x00007fac835a1000,0x00007fac836a1000)]
+  0x00007fac9de31000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=4126346, stack(0x00007fac836a2000,0x00007fac837a2000)]
+  0x00007fac9de2e000 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=4126345, stack(0x00007fac837a3000,0x00007fac838a3000)]
+  0x00007fac9de2a000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=4126344, stack(0x00007fac838a3000,0x00007fac839a4000)]
+  0x00007fac9ddf5000 JavaThread "Finalizer" daemon [_thread_blocked, id=4126343, stack(0x00007fac83c1c000,0x00007fac83d1d000)]
+  0x00007fac9ddf0800 JavaThread "Reference Handler" daemon [_thread_blocked, id=4126342, stack(0x00007fac83d1d000,0x00007fac83e1e000)]
+
+Other Threads:
+  0x00007fac9dde7000 VMThread [stack: 0x00007fac88057000,0x00007fac88157000] [id=4126341]
+  0x00007fac9de50000 WatcherThread [stack: 0x00007fac8329e000,0x00007fac8339e000] [id=4126350]
+
+=>0x00007fac9c009000 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=4126332, stack(0x00007faca2824000,0x00007faca2924000)]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+OutOfMemory and StackOverflow Exception counts:
+OutOfMemoryError java_heap_errors=1
+
+heap address: 0x00000004a0000000, size: 12800 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x00000007c0000000
+
+Heap:
+ PSYoungGen      total 4124160K, used 603165K [0x00000006b5580000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 4000256K, 11% used [0x00000006b5580000,0x00000006d29eb400,0x00000007a9800000)
+  from space 123904K, 99% used [0x00000007a9800000,0x00000007b109c010,0x00000007b1100000)
+  to   space 185344K, 0% used [0x00000007b4b00000,0x00000007b4b00000,0x00000007c0000000)
+ ParOldGen       total 546304K, used 259834K [0x00000004a0000000, 0x00000004c1580000, 0x00000006b5580000)
+  object space 546304K, 47% used [0x00000004a0000000,0x00000004afdbe818,0x00000004c1580000)
+ Metaspace       used 6105K, capacity 6362K, committed 6656K, reserved 1056768K
+  class space    used 648K, capacity 721K, committed 768K, reserved 1048576K
+
+Card table byte_map: [0x00007fac8b6ff000,0x00007fac8d000000] byte_map_base: 0x00007fac891ff000
+
+Marking Bits: (ParMarkBitMap*) 0x00007faca1f0f6a0
+ Begin Bits: [0x00007fac43000000, 0x00007fac4f800000)
+ End Bits:   [0x00007fac4f800000, 0x00007fac5c000000)
+
+Polling page: 0x00007faca2944000
+
+CodeCache: size=245760Kb used=5849Kb max_used=7806Kb free=239910Kb
+ bounds [0x00007fac8d000000, 0x00007fac8d7d0000, 0x00007fac9c000000]
+ total_blobs=1803 nmethods=1496 adapters=220
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 36.600 Thread 0x00007fac9de35000 2039       3       java.lang.StringCoding::deref (19 bytes)
+Event: 36.601 Thread 0x00007fac9de35000 nmethod 2039 0x00007fac8d1a7050 code [0x00007fac8d1a71e0, 0x00007fac8d1a7688]
+Event: 36.601 Thread 0x00007fac9de35000 2040       3       java.lang.StringCoding::access$000 (6 bytes)
+Event: 36.601 Thread 0x00007fac9de35000 nmethod 2040 0x00007fac8d3be850 code [0x00007fac8d3be9c0, 0x00007fac8d3beb70]
+Event: 36.601 Thread 0x00007fac9de35000 2041       3       java.lang.StringCoding::scale (7 bytes)
+Event: 36.602 Thread 0x00007fac9de35000 nmethod 2041 0x00007fac8d4df250 code [0x00007fac8d4df3a0, 0x00007fac8d4df510]
+Event: 36.636 Thread 0x00007fac9de2e000 2042       4       edu.bu.pas.pokemon.core.callbacks.TwoTurnCallback::<init> (8 bytes)
+Event: 36.636 Thread 0x00007fac9de2e000 nmethod 2042 0x00007fac8d269d50 code [0x00007fac8d269e80, 0x00007fac8d269f18]
+Event: 37.000 Thread 0x00007fac9de35000 2043       3       edu.bu.pas.pokemon.core.callbacks.MirrorMoveCallback::reset (1 bytes)
+Event: 37.000 Thread 0x00007fac9de35000 nmethod 2043 0x00007fac8d2b1d10 code [0x00007fac8d2b1e60, 0x00007fac8d2b1fb0]
+
+GC Heap History (10 events):
+Event: 23.707 GC heap before
+{Heap before GC invocations=13 (full 0):
+ PSYoungGen      total 4188160K, used 4143424K [0x00000006b5580000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 4020736K, 100% used [0x00000006b5580000,0x00000007aac00000,0x00000007aac00000)
+  from space 167424K, 73% used [0x00000007b5c80000,0x00000007bd450020,0x00000007c0000000)
+  to   space 174080K, 0% used [0x00000007aac00000,0x00000007aac00000,0x00000007b5600000)
+ ParOldGen       total 546304K, used 149878K [0x00000004a0000000, 0x00000004c1580000, 0x00000006b5580000)
+  object space 546304K, 27% used [0x00000004a0000000,0x00000004a925d888,0x00000004c1580000)
+ Metaspace       used 6057K, capacity 6234K, committed 6400K, reserved 1056768K
+  class space    used 644K, capacity 721K, committed 768K, reserved 1048576K
+Event: 23.829 GC heap after
+Heap after GC invocations=13 (full 0):
+ PSYoungGen      total 4142080K, used 121136K [0x00000006b5580000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 4020736K, 0% used [0x00000006b5580000,0x00000006b5580000,0x00000007aac00000)
+  from space 121344K, 99% used [0x00000007aac00000,0x00000007b224c010,0x00000007b2280000)
+  to   space 178176K, 0% used [0x00000007b5200000,0x00000007b5200000,0x00000007c0000000)
+ ParOldGen       total 546304K, used 173482K [0x00000004a0000000, 0x00000004c1580000, 0x00000006b5580000)
+  object space 546304K, 31% used [0x00000004a0000000,0x00000004aa96aaa0,0x00000004c1580000)
+ Metaspace       used 6057K, capacity 6234K, committed 6400K, reserved 1056768K
+  class space    used 644K, capacity 721K, committed 768K, reserved 1048576K
+}
+Event: 26.993 GC heap before
+{Heap before GC invocations=14 (full 0):
+ PSYoungGen      total 4142080K, used 4141872K [0x00000006b5580000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 4020736K, 100% used [0x00000006b5580000,0x00000007aac00000,0x00000007aac00000)
+  from space 121344K, 99% used [0x00000007aac00000,0x00000007b224c010,0x00000007b2280000)
+  to   space 178176K, 0% used [0x00000007b5200000,0x00000007b5200000,0x00000007c0000000)
+ ParOldGen       total 546304K, used 173482K [0x00000004a0000000, 0x00000004c1580000, 0x00000006b5580000)
+  object space 546304K, 31% used [0x00000004a0000000,0x00000004aa96aaa0,0x00000004c1580000)
+ Metaspace       used 6061K, capacity 6298K, committed 6400K, reserved 1056768K
+  class space    used 644K, capacity 721K, committed 768K, reserved 1048576K
+Event: 27.082 GC heap after
+Heap after GC invocations=14 (full 0):
+ PSYoungGen      total 4187648K, used 118096K [0x00000006b5580000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 4009472K, 0% used [0x00000006b5580000,0x00000006b5580000,0x00000007aa100000)
+  from space 178176K, 66% used [0x00000007b5200000,0x00000007bc554010,0x00000007c0000000)
+  to   space 179712K, 0% used [0x00000007aa100000,0x00000007aa100000,0x00000007b5080000)
+ ParOldGen       total 546304K, used 194190K [0x00000004a0000000, 0x00000004c1580000, 0x00000006b5580000)
+  object space 546304K, 35% used [0x00000004a0000000,0x00000004abda39f8,0x00000004c1580000)
+ Metaspace       used 6061K, capacity 6298K, committed 6400K, reserved 1056768K
+  class space    used 644K, capacity 721K, committed 768K, reserved 1048576K
+}
+Event: 30.090 GC heap before
+{Heap before GC invocations=15 (full 0):
+ PSYoungGen      total 4187648K, used 4127568K [0x00000006b5580000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 4009472K, 100% used [0x00000006b5580000,0x00000007aa100000,0x00000007aa100000)
+  from space 178176K, 66% used [0x00000007b5200000,0x00000007bc554010,0x00000007c0000000)
+  to   space 179712K, 0% used [0x00000007aa100000,0x00000007aa100000,0x00000007b5080000)
+ ParOldGen       total 546304K, used 194190K [0x00000004a0000000, 0x00000004c1580000, 0x00000006b5580000)
+  object space 546304K, 35% used [0x00000004a0000000,0x00000004abda39f8,0x00000004c1580000)
+ Metaspace       used 6066K, capacity 6298K, committed 6400K, reserved 1056768K
+  class space    used 644K, capacity 721K, committed 768K, reserved 1048576K
+Event: 30.189 GC heap after
+Heap after GC invocations=15 (full 0):
+ PSYoungGen      total 4134400K, used 124496K [0x00000006b5580000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 4009472K, 0% used [0x00000006b5580000,0x00000006b5580000,0x00000007aa100000)
+  from space 124928K, 99% used [0x00000007aa100000,0x00000007b1a94010,0x00000007b1b00000)
+  to   space 183296K, 0% used [0x00000007b4d00000,0x00000007b4d00000,0x00000007c0000000)
+ ParOldGen       total 546304K, used 214220K [0x00000004a0000000, 0x00000004c1580000, 0x00000006b5580000)
+  object space 546304K, 39% used [0x00000004a0000000,0x00000004ad133278,0x00000004c1580000)
+ Metaspace       used 6066K, capacity 6298K, committed 6400K, reserved 1056768K
+  class space    used 644K, capacity 721K, committed 768K, reserved 1048576K
+}
+Event: 33.268 GC heap before
+{Heap before GC invocations=16 (full 0):
+ PSYoungGen      total 4134400K, used 4133968K [0x00000006b5580000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 4009472K, 100% used [0x00000006b5580000,0x00000007aa100000,0x00000007aa100000)
+  from space 124928K, 99% used [0x00000007aa100000,0x00000007b1a94010,0x00000007b1b00000)
+  to   space 183296K, 0% used [0x00000007b4d00000,0x00000007b4d00000,0x00000007c0000000)
+ ParOldGen       total 546304K, used 214220K [0x00000004a0000000, 0x00000004c1580000, 0x00000006b5580000)
+  object space 546304K, 39% used [0x00000004a0000000,0x00000004ad133278,0x00000004c1580000)
+ Metaspace       used 6069K, capacity 6298K, committed 6400K, reserved 1056768K
+  class space    used 644K, capacity 721K, committed 768K, reserved 1048576K
+Event: 33.375 GC heap after
+Heap after GC invocations=16 (full 0):
+ PSYoungGen      total 4183552K, used 122752K [0x00000006b5580000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 4000256K, 0% used [0x00000006b5580000,0x00000006b5580000,0x00000007a9800000)
+  from space 183296K, 66% used [0x00000007b4d00000,0x00000007bc4e0030,0x00000007c0000000)
+  to   space 184320K, 0% used [0x00000007a9800000,0x00000007a9800000,0x00000007b4c00000)
+ ParOldGen       total 546304K, used 236662K [0x00000004a0000000, 0x00000004c1580000, 0x00000006b5580000)
+  object space 546304K, 43% used [0x00000004a0000000,0x00000004ae71d810,0x00000004c1580000)
+ Metaspace       used 6069K, capacity 6298K, committed 6400K, reserved 1056768K
+  class space    used 644K, capacity 721K, committed 768K, reserved 1048576K
+}
+Event: 36.781 GC heap before
+{Heap before GC invocations=17 (full 0):
+ PSYoungGen      total 4183552K, used 4123008K [0x00000006b5580000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 4000256K, 100% used [0x00000006b5580000,0x00000007a9800000,0x00000007a9800000)
+  from space 183296K, 66% used [0x00000007b4d00000,0x00000007bc4e0030,0x00000007c0000000)
+  to   space 184320K, 0% used [0x00000007a9800000,0x00000007a9800000,0x00000007b4c00000)
+ ParOldGen       total 546304K, used 236662K [0x00000004a0000000, 0x00000004c1580000, 0x00000006b5580000)
+  object space 546304K, 43% used [0x00000004a0000000,0x00000004ae71d810,0x00000004c1580000)
+ Metaspace       used 6077K, capacity 6298K, committed 6400K, reserved 1056768K
+  class space    used 644K, capacity 721K, committed 768K, reserved 1048576K
+Event: 36.915 GC heap after
+Heap after GC invocations=17 (full 0):
+ PSYoungGen      total 4124160K, used 123504K [0x00000006b5580000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 4000256K, 0% used [0x00000006b5580000,0x00000006b5580000,0x00000007a9800000)
+  from space 123904K, 99% used [0x00000007a9800000,0x00000007b109c010,0x00000007b1100000)
+  to   space 185344K, 0% used [0x00000007b4b00000,0x00000007b4b00000,0x00000007c0000000)
+ ParOldGen       total 546304K, used 259834K [0x00000004a0000000, 0x00000004c1580000, 0x00000006b5580000)
+  object space 546304K, 47% used [0x00000004a0000000,0x00000004afdbe818,0x00000004c1580000)
+ Metaspace       used 6077K, capacity 6298K, committed 6400K, reserved 1056768K
+  class space    used 644K, capacity 721K, committed 768K, reserved 1048576K
+}
+
+Deoptimization events (10 events):
+Event: 15.434 Thread 0x00007fac9c009000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007fac8d5aa330 method=java.util.WeakHashMap.put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; @ 47
+Event: 20.022 Thread 0x00007fac9c009000 Uncommon trap: reason=predicate action=maybe_recompile pc=0x00007fac8d16da14 method=java.util.LinkedList.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 45
+Event: 20.373 Thread 0x00007fac9c009000 Uncommon trap: reason=array_check action=maybe_recompile pc=0x00007fac8d205254 method=java.util.LinkedList.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 55
+Event: 20.373 Thread 0x00007fac9c009000 Uncommon trap: reason=array_check action=maybe_recompile pc=0x00007fac8d205254 method=java.util.LinkedList.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 55
+Event: 20.373 Thread 0x00007fac9c009000 Uncommon trap: reason=array_check action=maybe_recompile pc=0x00007fac8d205254 method=java.util.LinkedList.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 55
+Event: 20.373 Thread 0x00007fac9c009000 Uncommon trap: reason=array_check action=maybe_recompile pc=0x00007fac8d205254 method=java.util.LinkedList.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 55
+Event: 22.451 Thread 0x00007fac9c009000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007fac8d714af8 method=edu.bu.pas.pokemon.core.Pokemon.equals(Ljava/lang/Object;)Z @ 398
+Event: 28.555 Thread 0x00007fac9c009000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007fac8d3965cc method=edu.bu.pas.pokemon.core.Pokemon.equals(Ljava/lang/Object;)Z @ 388
+Event: 30.974 Thread 0x00007fac9c009000 Uncommon trap: reason=null_check action=make_not_entrant pc=0x00007fac8d11e0b0 method=edu.bu.pas.pokemon.core.Move.equals(Ljava/lang/Object;)Z @ 3
+Event: 37.283 Thread 0x00007fac9c009000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007fac8d6c8994 method=java.lang.ThreadLocal$ThreadLocalMap.getEntry(Ljava/lang/ThreadLocal;)Ljava/lang/ThreadLocal$ThreadLocalMap$Entry; @ 21
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (10 events):
+Event: 0.196 Thread 0x00007fac9c009000 Exception <a 'java/security/PrivilegedActionException'> (0x00000006b58400c8) thrown at [/scratch/jenkins/workspace/8-2-build-linux-x64-sans-NAS/jdk8u411/893/hotspot/src/share/vm/prims/jvm.cpp, line 1511]
+Event: 0.370 Thread 0x00007fac9c009000 Implicit null exception at 0x00007fac8d2c3c59 to 0x00007fac8d2c421d
+Event: 0.759 Thread 0x00007fac9c009000 Implicit null exception at 0x00007fac8d3f4302 to 0x00007fac8d3f4c55
+Event: 0.759 Thread 0x00007fac9c009000 Implicit null exception at 0x00007fac8d353771 to 0x00007fac8d3538bd
+Event: 1.233 Thread 0x00007fac9c009000 Implicit null exception at 0x00007fac8d350baa to 0x00007fac8d350ea5
+Event: 1.486 Thread 0x00007fac9c009000 Implicit null exception at 0x00007fac8d2fdc95 to 0x00007fac8d2fde99
+Event: 1.545 Thread 0x00007fac9c009000 Implicit null exception at 0x00007fac8d2a3984 to 0x00007fac8d2a3b5d
+Event: 30.974 Thread 0x00007fac9c009000 Implicit null exception at 0x00007fac8d11d90f to 0x00007fac8d11e0a1
+Event: 37.274 Thread 0x00007fac9c009000 Exception <a 'java/lang/OutOfMemoryError'> (0x00000006d1ed0880) thrown at [/scratch/jenkins/workspace/8-2-build-linux-x64-sans-NAS/jdk8u411/893/hotspot/src/share/vm/prims/jni.cpp, line 737]
+Event: 37.283 Thread 0x00007fac9c009000 Implicit null exception at 0x00007fac8d6c88f5 to 0x00007fac8d6c8979
+
+Events (10 events):
+Event: 37.274 loading class java/util/IdentityHashMap
+Event: 37.274 loading class java/util/IdentityHashMap done
+Event: 37.274 loading class java/util/IdentityHashMap$KeySet
+Event: 37.275 loading class java/util/IdentityHashMap$KeySet done
+Event: 37.275 loading class jdk/internal/misc/TerminatingThreadLocal$1
+Event: 37.283 loading class jdk/internal/misc/TerminatingThreadLocal$1 done
+Event: 37.283 Thread 0x00007fac9c009000 Uncommon trap: trap_request=0xffffff65 fr.pc=0x00007fac8d6c8994
+Event: 37.283 Thread 0x00007fac9c009000 DEOPT PACKING pc=0x00007fac8d6c8994 sp=0x00007faca29228c0
+Event: 37.283 Thread 0x00007fac9c009000 DEOPT UNPACKING pc=0x00007fac8d0457ba sp=0x00007faca2922878 mode 2
+Event: 37.283 Thread 0x00007fac9c009000 Thread exited: 0x00007fac9c009000
+
+
+Dynamic libraries:
+4a0000000-4c1580000 rw-p 00000000 00:00 0 
+4c1580000-6b5580000 ---p 00000000 00:00 0 
+6b5580000-7c0000000 rw-p 00000000 00:00 0 
+7c0000000-7c00c0000 rw-p 00000000 00:00 0 
+7c00c0000-800000000 ---p 00000000 00:00 0 
+555be512f000-555be5130000 r-xp 00000000 08:02 830456                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/bin/java
+555be5130000-555be5131000 r--p 00000000 08:02 830456                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/bin/java
+555be5131000-555be5132000 rw-p 00001000 08:02 830456                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/bin/java
+555be620e000-555be622f000 rw-p 00000000 00:00 0                          [heap]
+7fa89c000000-7fa89fffc000 rw-p 00000000 00:00 0 
+7fa89fffc000-7fa8a0000000 ---p 00000000 00:00 0 
+7fa8a0000000-7fa8a1380000 rw-p 00000000 00:00 0 
+7fa8a1380000-7fa8a4000000 ---p 00000000 00:00 0 
+7fa8a4000000-7fa8a7ffc000 rw-p 00000000 00:00 0 
+7fa8a7ffc000-7fa8a8000000 ---p 00000000 00:00 0 
+7fa8a8000000-7fa8abffd000 rw-p 00000000 00:00 0 
+7fa8abffd000-7fa8ac000000 ---p 00000000 00:00 0 
+7fa8ac000000-7fa8afffd000 rw-p 00000000 00:00 0 
+7fa8afffd000-7fa8b0000000 ---p 00000000 00:00 0 
+7fa8b0000000-7fa8b3ffc000 rw-p 00000000 00:00 0 
+7fa8b3ffc000-7fa8b4000000 ---p 00000000 00:00 0 
+7fa8b4000000-7fa8b7ffd000 rw-p 00000000 00:00 0 
+7fa8b7ffd000-7fa8b8000000 ---p 00000000 00:00 0 
+7fa8b8000000-7fa8bbffc000 rw-p 00000000 00:00 0 
+7fa8bbffc000-7fa8bc000000 ---p 00000000 00:00 0 
+7fa8bc000000-7fa8bfffc000 rw-p 00000000 00:00 0 
+7fa8bfffc000-7fa8c0000000 ---p 00000000 00:00 0 
+7fa8c0000000-7fa8c3ffc000 rw-p 00000000 00:00 0 
+7fa8c3ffc000-7fa8c4000000 ---p 00000000 00:00 0 
+7fa8c4000000-7fa8c7ffc000 rw-p 00000000 00:00 0 
+7fa8c7ffc000-7fa8c8000000 ---p 00000000 00:00 0 
+7fa8c8000000-7fa8cbffd000 rw-p 00000000 00:00 0 
+7fa8cbffd000-7fa8cc000000 ---p 00000000 00:00 0 
+7fa8cc000000-7fa8cfffd000 rw-p 00000000 00:00 0 
+7fa8cfffd000-7fa8d0000000 ---p 00000000 00:00 0 
+7fa8d0000000-7fa8d3ffc000 rw-p 00000000 00:00 0 
+7fa8d3ffc000-7fa8d4000000 ---p 00000000 00:00 0 
+7fa8d4000000-7fa8d7ffd000 rw-p 00000000 00:00 0 
+7fa8d7ffd000-7fa8d8000000 ---p 00000000 00:00 0 
+7fa8d8000000-7fa8dbffc000 rw-p 00000000 00:00 0 
+7fa8dbffc000-7fa8dc000000 ---p 00000000 00:00 0 
+7fa8dc000000-7fa8dfffc000 rw-p 00000000 00:00 0 
+7fa8dfffc000-7fa8e0000000 ---p 00000000 00:00 0 
+7fa8e0000000-7fa8e3ffc000 rw-p 00000000 00:00 0 
+7fa8e3ffc000-7fa8e4000000 ---p 00000000 00:00 0 
+7fa8e4000000-7fa8e7ffc000 rw-p 00000000 00:00 0 
+7fa8e7ffc000-7fa8e8000000 ---p 00000000 00:00 0 
+7fa8e8000000-7fa8ebffd000 rw-p 00000000 00:00 0 
+7fa8ebffd000-7fa8ec000000 ---p 00000000 00:00 0 
+7fa8ec000000-7fa8efffd000 rw-p 00000000 00:00 0 
+7fa8efffd000-7fa8f0000000 ---p 00000000 00:00 0 
+7fa8f0000000-7fa8f3ffc000 rw-p 00000000 00:00 0 
+7fa8f3ffc000-7fa8f4000000 ---p 00000000 00:00 0 
+7fa8f4000000-7fa8f7ffd000 rw-p 00000000 00:00 0 
+7fa8f7ffd000-7fa8f8000000 ---p 00000000 00:00 0 
+7fa8f8000000-7fa8fbffc000 rw-p 00000000 00:00 0 
+7fa8fbffc000-7fa8fc000000 ---p 00000000 00:00 0 
+7fa8fc000000-7fa8ffffc000 rw-p 00000000 00:00 0 
+7fa8ffffc000-7fa900000000 ---p 00000000 00:00 0 
+7fa900000000-7fa903ffc000 rw-p 00000000 00:00 0 
+7fa903ffc000-7fa904000000 ---p 00000000 00:00 0 
+7fa904000000-7fa907ffc000 rw-p 00000000 00:00 0 
+7fa907ffc000-7fa908000000 ---p 00000000 00:00 0 
+7fa908000000-7fa90bffd000 rw-p 00000000 00:00 0 
+7fa90bffd000-7fa90c000000 ---p 00000000 00:00 0 
+7fa90c000000-7fa90fffd000 rw-p 00000000 00:00 0 
+7fa90fffd000-7fa910000000 ---p 00000000 00:00 0 
+7fa910000000-7fa913ffc000 rw-p 00000000 00:00 0 
+7fa913ffc000-7fa914000000 ---p 00000000 00:00 0 
+7fa914000000-7fa917ffd000 rw-p 00000000 00:00 0 
+7fa917ffd000-7fa918000000 ---p 00000000 00:00 0 
+7fa918000000-7fa91bffc000 rw-p 00000000 00:00 0 
+7fa91bffc000-7fa91c000000 ---p 00000000 00:00 0 
+7fa91c000000-7fa91fffc000 rw-p 00000000 00:00 0 
+7fa91fffc000-7fa920000000 ---p 00000000 00:00 0 
+7fa920000000-7fa923ffc000 rw-p 00000000 00:00 0 
+7fa923ffc000-7fa924000000 ---p 00000000 00:00 0 
+7fa924000000-7fa927ffc000 rw-p 00000000 00:00 0 
+7fa927ffc000-7fa928000000 ---p 00000000 00:00 0 
+7fa928000000-7fa92bffd000 rw-p 00000000 00:00 0 
+7fa92bffd000-7fa92c000000 ---p 00000000 00:00 0 
+7fa92c000000-7fa92fffd000 rw-p 00000000 00:00 0 
+7fa92fffd000-7fa930000000 ---p 00000000 00:00 0 
+7fa930000000-7fa933ffc000 rw-p 00000000 00:00 0 
+7fa933ffc000-7fa934000000 ---p 00000000 00:00 0 
+7fa934000000-7fa937ffd000 rw-p 00000000 00:00 0 
+7fa937ffd000-7fa938000000 ---p 00000000 00:00 0 
+7fa938000000-7fa93bffc000 rw-p 00000000 00:00 0 
+7fa93bffc000-7fa93c000000 ---p 00000000 00:00 0 
+7fa93c000000-7fa93fffc000 rw-p 00000000 00:00 0 
+7fa93fffc000-7fa940000000 ---p 00000000 00:00 0 
+7fa940000000-7fa943ffc000 rw-p 00000000 00:00 0 
+7fa943ffc000-7fa944000000 ---p 00000000 00:00 0 
+7fa944000000-7fa947ffc000 rw-p 00000000 00:00 0 
+7fa947ffc000-7fa948000000 ---p 00000000 00:00 0 
+7fa948000000-7fa94bffd000 rw-p 00000000 00:00 0 
+7fa94bffd000-7fa94c000000 ---p 00000000 00:00 0 
+7fa94c000000-7fa94fffd000 rw-p 00000000 00:00 0 
+7fa94fffd000-7fa950000000 ---p 00000000 00:00 0 
+7fa950000000-7fa953ffc000 rw-p 00000000 00:00 0 
+7fa953ffc000-7fa954000000 ---p 00000000 00:00 0 
+7fa954000000-7fa957ffd000 rw-p 00000000 00:00 0 
+7fa957ffd000-7fa958000000 ---p 00000000 00:00 0 
+7fa958000000-7fa95bffc000 rw-p 00000000 00:00 0 
+7fa95bffc000-7fa95c000000 ---p 00000000 00:00 0 
+7fa95c000000-7fa95fffc000 rw-p 00000000 00:00 0 
+7fa95fffc000-7fa960000000 ---p 00000000 00:00 0 
+7fa960000000-7fa963ffc000 rw-p 00000000 00:00 0 
+7fa963ffc000-7fa964000000 ---p 00000000 00:00 0 
+7fa964000000-7fa967ffc000 rw-p 00000000 00:00 0 
+7fa967ffc000-7fa968000000 ---p 00000000 00:00 0 
+7fa968000000-7fa96bffd000 rw-p 00000000 00:00 0 
+7fa96bffd000-7fa96c000000 ---p 00000000 00:00 0 
+7fa96c000000-7fa96fffc000 rw-p 00000000 00:00 0 
+7fa96fffc000-7fa970000000 ---p 00000000 00:00 0 
+7fa970000000-7fa973ffd000 rw-p 00000000 00:00 0 
+7fa973ffd000-7fa974000000 ---p 00000000 00:00 0 
+7fa974000000-7fa977ffd000 rw-p 00000000 00:00 0 
+7fa977ffd000-7fa978000000 ---p 00000000 00:00 0 
+7fa978000000-7fa97bffc000 rw-p 00000000 00:00 0 
+7fa97bffc000-7fa97c000000 ---p 00000000 00:00 0 
+7fa97c000000-7fa97fffd000 rw-p 00000000 00:00 0 
+7fa97fffd000-7fa980000000 ---p 00000000 00:00 0 
+7fa980000000-7fa983ffc000 rw-p 00000000 00:00 0 
+7fa983ffc000-7fa984000000 ---p 00000000 00:00 0 
+7fa984000000-7fa987ffc000 rw-p 00000000 00:00 0 
+7fa987ffc000-7fa988000000 ---p 00000000 00:00 0 
+7fa988000000-7fa98bffc000 rw-p 00000000 00:00 0 
+7fa98bffc000-7fa98c000000 ---p 00000000 00:00 0 
+7fa98c000000-7fa98fffc000 rw-p 00000000 00:00 0 
+7fa98fffc000-7fa990000000 ---p 00000000 00:00 0 
+7fa990000000-7fa993ffd000 rw-p 00000000 00:00 0 
+7fa993ffd000-7fa994000000 ---p 00000000 00:00 0 
+7fa994000000-7fa997ffd000 rw-p 00000000 00:00 0 
+7fa997ffd000-7fa998000000 ---p 00000000 00:00 0 
+7fa998000000-7fa99bffc000 rw-p 00000000 00:00 0 
+7fa99bffc000-7fa99c000000 ---p 00000000 00:00 0 
+7fa99c000000-7fa99fffd000 rw-p 00000000 00:00 0 
+7fa99fffd000-7fa9a0000000 ---p 00000000 00:00 0 
+7fa9a0000000-7fa9a3ffc000 rw-p 00000000 00:00 0 
+7fa9a3ffc000-7fa9a4000000 ---p 00000000 00:00 0 
+7fa9a4000000-7fa9a7ffc000 rw-p 00000000 00:00 0 
+7fa9a7ffc000-7fa9a8000000 ---p 00000000 00:00 0 
+7fa9a8000000-7fa9abffc000 rw-p 00000000 00:00 0 
+7fa9abffc000-7fa9ac000000 ---p 00000000 00:00 0 
+7fa9ac000000-7fa9afffc000 rw-p 00000000 00:00 0 
+7fa9afffc000-7fa9b0000000 ---p 00000000 00:00 0 
+7fa9b0000000-7fa9b3ffd000 rw-p 00000000 00:00 0 
+7fa9b3ffd000-7fa9b4000000 ---p 00000000 00:00 0 
+7fa9b4000000-7fa9b7ffc000 rw-p 00000000 00:00 0 
+7fa9b7ffc000-7fa9b8000000 ---p 00000000 00:00 0 
+7fa9b8000000-7fa9bbffd000 rw-p 00000000 00:00 0 
+7fa9bbffd000-7fa9bc000000 ---p 00000000 00:00 0 
+7fa9bc000000-7fa9bfffd000 rw-p 00000000 00:00 0 
+7fa9bfffd000-7fa9c0000000 ---p 00000000 00:00 0 
+7fa9c0000000-7fa9c3ffc000 rw-p 00000000 00:00 0 
+7fa9c3ffc000-7fa9c4000000 ---p 00000000 00:00 0 
+7fa9c4000000-7fa9c7ffd000 rw-p 00000000 00:00 0 
+7fa9c7ffd000-7fa9c8000000 ---p 00000000 00:00 0 
+7fa9c8000000-7fa9cbffc000 rw-p 00000000 00:00 0 
+7fa9cbffc000-7fa9cc000000 ---p 00000000 00:00 0 
+7fa9cc000000-7fa9cfffc000 rw-p 00000000 00:00 0 
+7fa9cfffc000-7fa9d0000000 ---p 00000000 00:00 0 
+7fa9d0000000-7fa9d3ffc000 rw-p 00000000 00:00 0 
+7fa9d3ffc000-7fa9d4000000 ---p 00000000 00:00 0 
+7fa9d4000000-7fa9d7ffc000 rw-p 00000000 00:00 0 
+7fa9d7ffc000-7fa9d8000000 ---p 00000000 00:00 0 
+7fa9d8000000-7fa9dbffd000 rw-p 00000000 00:00 0 
+7fa9dbffd000-7fa9dc000000 ---p 00000000 00:00 0 
+7fa9dc000000-7fa9dfffd000 rw-p 00000000 00:00 0 
+7fa9dfffd000-7fa9e0000000 ---p 00000000 00:00 0 
+7fa9e0000000-7fa9e3ffc000 rw-p 00000000 00:00 0 
+7fa9e3ffc000-7fa9e4000000 ---p 00000000 00:00 0 
+7fa9e4000000-7fa9e7ffd000 rw-p 00000000 00:00 0 
+7fa9e7ffd000-7fa9e8000000 ---p 00000000 00:00 0 
+7fa9e8000000-7fa9ebffc000 rw-p 00000000 00:00 0 
+7fa9ebffc000-7fa9ec000000 ---p 00000000 00:00 0 
+7fa9ec000000-7fa9efffc000 rw-p 00000000 00:00 0 
+7fa9efffc000-7fa9f0000000 ---p 00000000 00:00 0 
+7fa9f0000000-7fa9f3ffc000 rw-p 00000000 00:00 0 
+7fa9f3ffc000-7fa9f4000000 ---p 00000000 00:00 0 
+7fa9f4000000-7fa9f7ffc000 rw-p 00000000 00:00 0 
+7fa9f7ffc000-7fa9f8000000 ---p 00000000 00:00 0 
+7fa9f8000000-7fa9fbffd000 rw-p 00000000 00:00 0 
+7fa9fbffd000-7fa9fc000000 ---p 00000000 00:00 0 
+7fa9fc000000-7fa9ffffd000 rw-p 00000000 00:00 0 
+7fa9ffffd000-7faa00000000 ---p 00000000 00:00 0 
+7faa00000000-7faa03ffc000 rw-p 00000000 00:00 0 
+7faa03ffc000-7faa04000000 ---p 00000000 00:00 0 
+7faa04000000-7faa07ffd000 rw-p 00000000 00:00 0 
+7faa07ffd000-7faa08000000 ---p 00000000 00:00 0 
+7faa08000000-7faa0bffc000 rw-p 00000000 00:00 0 
+7faa0bffc000-7faa0c000000 ---p 00000000 00:00 0 
+7faa0c000000-7faa0fffc000 rw-p 00000000 00:00 0 
+7faa0fffc000-7faa10000000 ---p 00000000 00:00 0 
+7faa10000000-7faa13ffc000 rw-p 00000000 00:00 0 
+7faa13ffc000-7faa14000000 ---p 00000000 00:00 0 
+7faa14000000-7faa17ffc000 rw-p 00000000 00:00 0 
+7faa17ffc000-7faa18000000 ---p 00000000 00:00 0 
+7faa18000000-7faa1bffd000 rw-p 00000000 00:00 0 
+7faa1bffd000-7faa1c000000 ---p 00000000 00:00 0 
+7faa1c000000-7faa1fffd000 rw-p 00000000 00:00 0 
+7faa1fffd000-7faa20000000 ---p 00000000 00:00 0 
+7faa20000000-7faa23ffc000 rw-p 00000000 00:00 0 
+7faa23ffc000-7faa24000000 ---p 00000000 00:00 0 
+7faa24000000-7faa27ffd000 rw-p 00000000 00:00 0 
+7faa27ffd000-7faa28000000 ---p 00000000 00:00 0 
+7faa28000000-7faa2bffc000 rw-p 00000000 00:00 0 
+7faa2bffc000-7faa2c000000 ---p 00000000 00:00 0 
+7faa2c000000-7faa2fffc000 rw-p 00000000 00:00 0 
+7faa2fffc000-7faa30000000 ---p 00000000 00:00 0 
+7faa30000000-7faa33ffc000 rw-p 00000000 00:00 0 
+7faa33ffc000-7faa34000000 ---p 00000000 00:00 0 
+7faa34000000-7faa37ffc000 rw-p 00000000 00:00 0 
+7faa37ffc000-7faa38000000 ---p 00000000 00:00 0 
+7faa38000000-7faa3bffd000 rw-p 00000000 00:00 0 
+7faa3bffd000-7faa3c000000 ---p 00000000 00:00 0 
+7faa3c000000-7faa3fffd000 rw-p 00000000 00:00 0 
+7faa3fffd000-7faa40000000 ---p 00000000 00:00 0 
+7faa40000000-7faa43ffc000 rw-p 00000000 00:00 0 
+7faa43ffc000-7faa44000000 ---p 00000000 00:00 0 
+7faa44000000-7faa47ffd000 rw-p 00000000 00:00 0 
+7faa47ffd000-7faa48000000 ---p 00000000 00:00 0 
+7faa48000000-7faa4bffc000 rw-p 00000000 00:00 0 
+7faa4bffc000-7faa4c000000 ---p 00000000 00:00 0 
+7faa4c000000-7faa4fffc000 rw-p 00000000 00:00 0 
+7faa4fffc000-7faa50000000 ---p 00000000 00:00 0 
+7faa50000000-7faa53ffc000 rw-p 00000000 00:00 0 
+7faa53ffc000-7faa54000000 ---p 00000000 00:00 0 
+7faa54000000-7faa57ffc000 rw-p 00000000 00:00 0 
+7faa57ffc000-7faa58000000 ---p 00000000 00:00 0 
+7faa58000000-7faa5bffd000 rw-p 00000000 00:00 0 
+7faa5bffd000-7faa5c000000 ---p 00000000 00:00 0 
+7faa5c000000-7faa5fffd000 rw-p 00000000 00:00 0 
+7faa5fffd000-7faa60000000 ---p 00000000 00:00 0 
+7faa60000000-7faa63ffc000 rw-p 00000000 00:00 0 
+7faa63ffc000-7faa64000000 ---p 00000000 00:00 0 
+7faa64000000-7faa67ffd000 rw-p 00000000 00:00 0 
+7faa67ffd000-7faa68000000 ---p 00000000 00:00 0 
+7faa68000000-7faa6bffc000 rw-p 00000000 00:00 0 
+7faa6bffc000-7faa6c000000 ---p 00000000 00:00 0 
+7faa6c000000-7faa6fffc000 rw-p 00000000 00:00 0 
+7faa6fffc000-7faa70000000 ---p 00000000 00:00 0 
+7faa70000000-7faa73ffc000 rw-p 00000000 00:00 0 
+7faa73ffc000-7faa74000000 ---p 00000000 00:00 0 
+7faa74000000-7faa77ffc000 rw-p 00000000 00:00 0 
+7faa77ffc000-7faa78000000 ---p 00000000 00:00 0 
+7faa78000000-7faa7bffd000 rw-p 00000000 00:00 0 
+7faa7bffd000-7faa7c000000 ---p 00000000 00:00 0 
+7faa7c000000-7faa7fffc000 rw-p 00000000 00:00 0 
+7faa7fffc000-7faa80000000 ---p 00000000 00:00 0 
+7faa80000000-7faa83ffd000 rw-p 00000000 00:00 0 
+7faa83ffd000-7faa84000000 ---p 00000000 00:00 0 
+7faa84000000-7faa87ffd000 rw-p 00000000 00:00 0 
+7faa87ffd000-7faa88000000 ---p 00000000 00:00 0 
+7faa88000000-7faa8bffc000 rw-p 00000000 00:00 0 
+7faa8bffc000-7faa8c000000 ---p 00000000 00:00 0 
+7faa8c000000-7faa8fffc000 rw-p 00000000 00:00 0 
+7faa8fffc000-7faa90000000 ---p 00000000 00:00 0 
+7faa90000000-7faa93ffc000 rw-p 00000000 00:00 0 
+7faa93ffc000-7faa94000000 ---p 00000000 00:00 0 
+7faa94000000-7faa97ffc000 rw-p 00000000 00:00 0 
+7faa97ffc000-7faa98000000 ---p 00000000 00:00 0 
+7faa98000000-7faa9bffd000 rw-p 00000000 00:00 0 
+7faa9bffd000-7faa9c000000 ---p 00000000 00:00 0 
+7faa9c000000-7faa9fffc000 rw-p 00000000 00:00 0 
+7faa9fffc000-7faaa0000000 ---p 00000000 00:00 0 
+7faaa0000000-7faaa3ffd000 rw-p 00000000 00:00 0 
+7faaa3ffd000-7faaa4000000 ---p 00000000 00:00 0 
+7faaa4000000-7faaa7ffd000 rw-p 00000000 00:00 0 
+7faaa7ffd000-7faaa8000000 ---p 00000000 00:00 0 
+7faaa8000000-7faaabffc000 rw-p 00000000 00:00 0 
+7faaabffc000-7faaac000000 ---p 00000000 00:00 0 
+7faaac000000-7faaafffd000 rw-p 00000000 00:00 0 
+7faaafffd000-7faab0000000 ---p 00000000 00:00 0 
+7faab0000000-7faab3ffc000 rw-p 00000000 00:00 0 
+7faab3ffc000-7faab4000000 ---p 00000000 00:00 0 
+7faab4000000-7faab7ffd000 rw-p 00000000 00:00 0 
+7faab7ffd000-7faab8000000 ---p 00000000 00:00 0 
+7faab8000000-7faabbffc000 rw-p 00000000 00:00 0 
+7faabbffc000-7faabc000000 ---p 00000000 00:00 0 
+7faabc000000-7faabfffc000 rw-p 00000000 00:00 0 
+7faabfffc000-7faac0000000 ---p 00000000 00:00 0 
+7faac0000000-7faac3ffc000 rw-p 00000000 00:00 0 
+7faac3ffc000-7faac4000000 ---p 00000000 00:00 0 
+7faac4000000-7faac7ffc000 rw-p 00000000 00:00 0 
+7faac7ffc000-7faac8000000 ---p 00000000 00:00 0 
+7faac8000000-7faacbffd000 rw-p 00000000 00:00 0 
+7faacbffd000-7faacc000000 ---p 00000000 00:00 0 
+7faacc000000-7faacfffd000 rw-p 00000000 00:00 0 
+7faacfffd000-7faad0000000 ---p 00000000 00:00 0 
+7faad0000000-7faad3ffc000 rw-p 00000000 00:00 0 
+7faad3ffc000-7faad4000000 ---p 00000000 00:00 0 
+7faad4000000-7faad7ffd000 rw-p 00000000 00:00 0 
+7faad7ffd000-7faad8000000 ---p 00000000 00:00 0 
+7faad8000000-7faadbffc000 rw-p 00000000 00:00 0 
+7faadbffc000-7faadc000000 ---p 00000000 00:00 0 
+7faadc000000-7faadfffc000 rw-p 00000000 00:00 0 
+7faadfffc000-7faae0000000 ---p 00000000 00:00 0 
+7faae0000000-7faae3ffc000 rw-p 00000000 00:00 0 
+7faae3ffc000-7faae4000000 ---p 00000000 00:00 0 
+7faae4000000-7faae7ffc000 rw-p 00000000 00:00 0 
+7faae7ffc000-7faae8000000 ---p 00000000 00:00 0 
+7faae8000000-7faaebffd000 rw-p 00000000 00:00 0 
+7faaebffd000-7faaec000000 ---p 00000000 00:00 0 
+7faaec000000-7faaefffd000 rw-p 00000000 00:00 0 
+7faaefffd000-7faaf0000000 ---p 00000000 00:00 0 
+7faaf0000000-7faaf3ffc000 rw-p 00000000 00:00 0 
+7faaf3ffc000-7faaf4000000 ---p 00000000 00:00 0 
+7faaf4000000-7faaf7ffd000 rw-p 00000000 00:00 0 
+7faaf7ffd000-7faaf8000000 ---p 00000000 00:00 0 
+7faaf8000000-7faafbffc000 rw-p 00000000 00:00 0 
+7faafbffc000-7faafc000000 ---p 00000000 00:00 0 
+7faafc000000-7faaffffc000 rw-p 00000000 00:00 0 
+7faaffffc000-7fab00000000 ---p 00000000 00:00 0 
+7fab00000000-7fab03ffc000 rw-p 00000000 00:00 0 
+7fab03ffc000-7fab04000000 ---p 00000000 00:00 0 
+7fab04000000-7fab07ffc000 rw-p 00000000 00:00 0 
+7fab07ffc000-7fab08000000 ---p 00000000 00:00 0 
+7fab08000000-7fab0bffd000 rw-p 00000000 00:00 0 
+7fab0bffd000-7fab0c000000 ---p 00000000 00:00 0 
+7fab0c000000-7fab0fffc000 rw-p 00000000 00:00 0 
+7fab0fffc000-7fab10000000 ---p 00000000 00:00 0 
+7fab10000000-7fab13ffd000 rw-p 00000000 00:00 0 
+7fab13ffd000-7fab14000000 ---p 00000000 00:00 0 
+7fab14000000-7fab17ffc000 rw-p 00000000 00:00 0 
+7fab17ffc000-7fab18000000 ---p 00000000 00:00 0 
+7fab18000000-7fab1bffc000 rw-p 00000000 00:00 0 
+7fab1bffc000-7fab1c000000 ---p 00000000 00:00 0 
+7fab1c000000-7fab1fffc000 rw-p 00000000 00:00 0 
+7fab1fffc000-7fab20000000 ---p 00000000 00:00 0 
+7fab20000000-7fab23ffd000 rw-p 00000000 00:00 0 
+7fab23ffd000-7fab24000000 ---p 00000000 00:00 0 
+7fab24000000-7fab27ffc000 rw-p 00000000 00:00 0 
+7fab27ffc000-7fab28000000 ---p 00000000 00:00 0 
+7fab28000000-7fab2bffd000 rw-p 00000000 00:00 0 
+7fab2bffd000-7fab2c000000 ---p 00000000 00:00 0 
+7fab2c000000-7fab2fffc000 rw-p 00000000 00:00 0 
+7fab2fffc000-7fab30000000 ---p 00000000 00:00 0 
+7fab30000000-7fab33ffd000 rw-p 00000000 00:00 0 
+7fab33ffd000-7fab34000000 ---p 00000000 00:00 0 
+7fab34000000-7fab37ffd000 rw-p 00000000 00:00 0 
+7fab37ffd000-7fab38000000 ---p 00000000 00:00 0 
+7fab38000000-7fab3bffc000 rw-p 00000000 00:00 0 
+7fab3bffc000-7fab3c000000 ---p 00000000 00:00 0 
+7fab3c000000-7fab3fffd000 rw-p 00000000 00:00 0 
+7fab3fffd000-7fab40000000 ---p 00000000 00:00 0 
+7fab40000000-7fab43ffc000 rw-p 00000000 00:00 0 
+7fab43ffc000-7fab44000000 ---p 00000000 00:00 0 
+7fab44000000-7fab47ffc000 rw-p 00000000 00:00 0 
+7fab47ffc000-7fab48000000 ---p 00000000 00:00 0 
+7fab48000000-7fab4bffc000 rw-p 00000000 00:00 0 
+7fab4bffc000-7fab4c000000 ---p 00000000 00:00 0 
+7fab4c000000-7fab4fffc000 rw-p 00000000 00:00 0 
+7fab4fffc000-7fab50000000 ---p 00000000 00:00 0 
+7fab50000000-7fab53ffd000 rw-p 00000000 00:00 0 
+7fab53ffd000-7fab54000000 ---p 00000000 00:00 0 
+7fab54000000-7fab57ffe000 rw-p 00000000 00:00 0 
+7fab57ffe000-7fab58000000 ---p 00000000 00:00 0 
+7fab58000000-7fab5bffd000 rw-p 00000000 00:00 0 
+7fab5bffd000-7fab5c000000 ---p 00000000 00:00 0 
+7fab5c000000-7fab5fffc000 rw-p 00000000 00:00 0 
+7fab5fffc000-7fab60000000 ---p 00000000 00:00 0 
+7fab60000000-7fab63fff000 rw-p 00000000 00:00 0 
+7fab63fff000-7fab64000000 ---p 00000000 00:00 0 
+7fab64000000-7fab67ffc000 rw-p 00000000 00:00 0 
+7fab67ffc000-7fab68000000 ---p 00000000 00:00 0 
+7fab68000000-7fab6bffd000 rw-p 00000000 00:00 0 
+7fab6bffd000-7fab6c000000 ---p 00000000 00:00 0 
+7fab6c000000-7fab6fffc000 rw-p 00000000 00:00 0 
+7fab6fffc000-7fab70000000 ---p 00000000 00:00 0 
+7fab70000000-7fab73ffd000 rw-p 00000000 00:00 0 
+7fab73ffd000-7fab74000000 ---p 00000000 00:00 0 
+7fab74000000-7fab77ffd000 rw-p 00000000 00:00 0 
+7fab77ffd000-7fab78000000 ---p 00000000 00:00 0 
+7fab78000000-7fab7bffc000 rw-p 00000000 00:00 0 
+7fab7bffc000-7fab7c000000 ---p 00000000 00:00 0 
+7fab7c000000-7fab7fffd000 rw-p 00000000 00:00 0 
+7fab7fffd000-7fab80000000 ---p 00000000 00:00 0 
+7fab80000000-7fab83ffc000 rw-p 00000000 00:00 0 
+7fab83ffc000-7fab84000000 ---p 00000000 00:00 0 
+7fab84000000-7fab87ffc000 rw-p 00000000 00:00 0 
+7fab87ffc000-7fab88000000 ---p 00000000 00:00 0 
+7fab88000000-7fab8bffc000 rw-p 00000000 00:00 0 
+7fab8bffc000-7fab8c000000 ---p 00000000 00:00 0 
+7fab8c000000-7fab8fffc000 rw-p 00000000 00:00 0 
+7fab8fffc000-7fab90000000 ---p 00000000 00:00 0 
+7fab90000000-7fab93ffd000 rw-p 00000000 00:00 0 
+7fab93ffd000-7fab94000000 ---p 00000000 00:00 0 
+7fab94000000-7fab97ffd000 rw-p 00000000 00:00 0 
+7fab97ffd000-7fab98000000 ---p 00000000 00:00 0 
+7fab98000000-7fab9bffd000 rw-p 00000000 00:00 0 
+7fab9bffd000-7fab9c000000 ---p 00000000 00:00 0 
+7fab9c000000-7fab9fffc000 rw-p 00000000 00:00 0 
+7fab9fffc000-7faba0000000 ---p 00000000 00:00 0 
+7faba0000000-7faba3ffc000 rw-p 00000000 00:00 0 
+7faba3ffc000-7faba4000000 ---p 00000000 00:00 0 
+7faba4000000-7faba7ffc000 rw-p 00000000 00:00 0 
+7faba7ffc000-7faba8000000 ---p 00000000 00:00 0 
+7faba8000000-7fababffd000 rw-p 00000000 00:00 0 
+7fababffd000-7fabac000000 ---p 00000000 00:00 0 
+7fabac000000-7fabaffff000 rw-p 00000000 00:00 0 
+7fabaffff000-7fabb0000000 ---p 00000000 00:00 0 
+7fabb0000000-7fabb3ffd000 rw-p 00000000 00:00 0 
+7fabb3ffd000-7fabb4000000 ---p 00000000 00:00 0 
+7fabb4000000-7fabb7ffd000 rw-p 00000000 00:00 0 
+7fabb7ffd000-7fabb8000000 ---p 00000000 00:00 0 
+7fabb8000000-7fabbbffc000 rw-p 00000000 00:00 0 
+7fabbbffc000-7fabbc000000 ---p 00000000 00:00 0 
+7fabbc000000-7fabbfffd000 rw-p 00000000 00:00 0 
+7fabbfffd000-7fabc0000000 ---p 00000000 00:00 0 
+7fabc0000000-7fabc3ffc000 rw-p 00000000 00:00 0 
+7fabc3ffc000-7fabc4000000 ---p 00000000 00:00 0 
+7fabc4000000-7fabc7ffc000 rw-p 00000000 00:00 0 
+7fabc7ffc000-7fabc8000000 ---p 00000000 00:00 0 
+7fabc8000000-7fabcbffc000 rw-p 00000000 00:00 0 
+7fabcbffc000-7fabcc000000 ---p 00000000 00:00 0 
+7fabcc000000-7fabcfffc000 rw-p 00000000 00:00 0 
+7fabcfffc000-7fabd0000000 ---p 00000000 00:00 0 
+7fabd0000000-7fabd3ffd000 rw-p 00000000 00:00 0 
+7fabd3ffd000-7fabd4000000 ---p 00000000 00:00 0 
+7fabd4000000-7fabd7ffc000 rw-p 00000000 00:00 0 
+7fabd7ffc000-7fabd8000000 ---p 00000000 00:00 0 
+7fabd8000000-7fabdbffd000 rw-p 00000000 00:00 0 
+7fabdbffd000-7fabdc000000 ---p 00000000 00:00 0 
+7fabdc000000-7fabdfffd000 rw-p 00000000 00:00 0 
+7fabdfffd000-7fabe0000000 ---p 00000000 00:00 0 
+7fabe0000000-7fabe3ffc000 rw-p 00000000 00:00 0 
+7fabe3ffc000-7fabe4000000 ---p 00000000 00:00 0 
+7fabe4000000-7fabe7ffd000 rw-p 00000000 00:00 0 
+7fabe7ffd000-7fabe8000000 ---p 00000000 00:00 0 
+7fabe8000000-7fabebffc000 rw-p 00000000 00:00 0 
+7fabebffc000-7fabec000000 ---p 00000000 00:00 0 
+7fabec000000-7fabefffc000 rw-p 00000000 00:00 0 
+7fabefffc000-7fabf0000000 ---p 00000000 00:00 0 
+7fabf0000000-7fabf3ffc000 rw-p 00000000 00:00 0 
+7fabf3ffc000-7fabf4000000 ---p 00000000 00:00 0 
+7fabf4000000-7fabf7ffc000 rw-p 00000000 00:00 0 
+7fabf7ffc000-7fabf8000000 ---p 00000000 00:00 0 
+7fabf8000000-7fabfbffd000 rw-p 00000000 00:00 0 
+7fabfbffd000-7fabfc000000 ---p 00000000 00:00 0 
+7fabfc000000-7fabffffc000 rw-p 00000000 00:00 0 
+7fabffffc000-7fac00000000 ---p 00000000 00:00 0 
+7fac00000000-7fac03ffd000 rw-p 00000000 00:00 0 
+7fac03ffd000-7fac04000000 ---p 00000000 00:00 0 
+7fac04000000-7fac07ffd000 rw-p 00000000 00:00 0 
+7fac07ffd000-7fac08000000 ---p 00000000 00:00 0 
+7fac08000000-7fac0bffc000 rw-p 00000000 00:00 0 
+7fac0bffc000-7fac0c000000 ---p 00000000 00:00 0 
+7fac0c000000-7fac0fffd000 rw-p 00000000 00:00 0 
+7fac0fffd000-7fac10000000 ---p 00000000 00:00 0 
+7fac10000000-7fac13ffb000 rw-p 00000000 00:00 0 
+7fac13ffb000-7fac14000000 ---p 00000000 00:00 0 
+7fac14000000-7fac14021000 rw-p 00000000 00:00 0 
+7fac14021000-7fac18000000 ---p 00000000 00:00 0 
+7fac18000000-7fac18021000 rw-p 00000000 00:00 0 
+7fac18021000-7fac1c000000 ---p 00000000 00:00 0 
+7fac1c000000-7fac1c531000 rw-p 00000000 00:00 0 
+7fac1c531000-7fac20000000 ---p 00000000 00:00 0 
+7fac20000000-7fac20021000 rw-p 00000000 00:00 0 
+7fac20021000-7fac24000000 ---p 00000000 00:00 0 
+7fac24000000-7fac24b0c000 rw-p 00000000 00:00 0 
+7fac24b0c000-7fac28000000 ---p 00000000 00:00 0 
+7fac28000000-7fac286c3000 rw-p 00000000 00:00 0 
+7fac286c3000-7fac2c000000 ---p 00000000 00:00 0 
+7fac2c000000-7fac2c021000 rw-p 00000000 00:00 0 
+7fac2c021000-7fac30000000 ---p 00000000 00:00 0 
+7fac30000000-7fac30b8d000 rw-p 00000000 00:00 0 
+7fac30b8d000-7fac34000000 ---p 00000000 00:00 0 
+7fac34000000-7fac34021000 rw-p 00000000 00:00 0 
+7fac34021000-7fac38000000 ---p 00000000 00:00 0 
+7fac38000000-7fac38021000 rw-p 00000000 00:00 0 
+7fac38021000-7fac3c000000 ---p 00000000 00:00 0 
+7fac3c000000-7fac3c021000 rw-p 00000000 00:00 0 
+7fac3c021000-7fac40000000 ---p 00000000 00:00 0 
+7fac43000000-7fac5c000000 rw-p 00000000 00:00 0 
+7fac5c000000-7fac5c021000 rw-p 00000000 00:00 0 
+7fac5c021000-7fac60000000 ---p 00000000 00:00 0 
+7fac60000000-7fac60021000 rw-p 00000000 00:00 0 
+7fac60021000-7fac64000000 ---p 00000000 00:00 0 
+7fac64000000-7fac64021000 rw-p 00000000 00:00 0 
+7fac64021000-7fac68000000 ---p 00000000 00:00 0 
+7fac6c000000-7fac6c021000 rw-p 00000000 00:00 0 
+7fac6c021000-7fac70000000 ---p 00000000 00:00 0 
+7fac74000000-7fac74021000 rw-p 00000000 00:00 0 
+7fac74021000-7fac78000000 ---p 00000000 00:00 0 
+7fac78000000-7fac78021000 rw-p 00000000 00:00 0 
+7fac78021000-7fac7c000000 ---p 00000000 00:00 0 
+7fac7c000000-7fac7c021000 rw-p 00000000 00:00 0 
+7fac7c021000-7fac80000000 ---p 00000000 00:00 0 
+7fac8329d000-7fac8329e000 ---p 00000000 00:00 0 
+7fac8329e000-7fac8339e000 rw-p 00000000 00:00 0 
+7fac8339e000-7fac833a1000 ---p 00000000 00:00 0 
+7fac833a1000-7fac8349f000 rw-p 00000000 00:00 0 
+7fac8349f000-7fac834a0000 ---p 00000000 00:00 0 
+7fac834a0000-7fac834a3000 ---p 00000000 00:00 0 
+7fac834a3000-7fac835a0000 rw-p 00000000 00:00 0 
+7fac835a0000-7fac835a1000 ---p 00000000 00:00 0 
+7fac835a1000-7fac835a4000 ---p 00000000 00:00 0 
+7fac835a4000-7fac836a1000 rw-p 00000000 00:00 0 
+7fac836a1000-7fac836a2000 ---p 00000000 00:00 0 
+7fac836a2000-7fac836a5000 ---p 00000000 00:00 0 
+7fac836a5000-7fac837a2000 rw-p 00000000 00:00 0 
+7fac837a2000-7fac837a3000 ---p 00000000 00:00 0 
+7fac837a3000-7fac837a6000 ---p 00000000 00:00 0 
+7fac837a6000-7fac838a3000 rw-p 00000000 00:00 0 
+7fac838a3000-7fac838a6000 ---p 00000000 00:00 0 
+7fac838a6000-7fac839a4000 rw-p 00000000 00:00 0 
+7fac839a4000-7fac83c1c000 r--p 00000000 08:02 950940                     /usr/lib/locale/en_US.utf8/LC_COLLATE
+7fac83c1c000-7fac83c1f000 ---p 00000000 00:00 0 
+7fac83c1f000-7fac83d1d000 rw-p 00000000 00:00 0 
+7fac83d1d000-7fac83d20000 ---p 00000000 00:00 0 
+7fac83d20000-7fac83e1e000 rw-p 00000000 00:00 0 
+7fac83e1e000-7fac84000000 r--s 03ed4000 08:02 830757                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/rt.jar
+7fac84000000-7fac84021000 rw-p 00000000 00:00 0 
+7fac84021000-7fac88000000 ---p 00000000 00:00 0 
+7fac88056000-7fac88057000 ---p 00000000 00:00 0 
+7fac88057000-7fac88717000 rw-p 00000000 00:00 0 
+7fac88717000-7fac88957000 ---p 00000000 00:00 0 
+7fac88957000-7fac8a351000 rw-p 00000000 00:00 0 
+7fac8a351000-7fac8a352000 ---p 00000000 00:00 0 
+7fac8a352000-7fac8a452000 rw-p 00000000 00:00 0 
+7fac8a452000-7fac8a453000 ---p 00000000 00:00 0 
+7fac8a453000-7fac8a553000 rw-p 00000000 00:00 0 
+7fac8a553000-7fac8a554000 ---p 00000000 00:00 0 
+7fac8a554000-7fac8a75f000 rw-p 00000000 00:00 0 
+7fac8a75f000-7fac8b6ff000 ---p 00000000 00:00 0 
+7fac8b6ff000-7fac8b80a000 rw-p 00000000 00:00 0 
+7fac8b80a000-7fac8c7a9000 ---p 00000000 00:00 0 
+7fac8c7a9000-7fac8cfff000 rw-p 00000000 00:00 0 
+7fac8cfff000-7fac8d000000 rw-p 00000000 00:00 0 
+7fac8d000000-7fac8d7d0000 rwxp 00000000 00:00 0 
+7fac8d7d0000-7fac9c000000 ---p 00000000 00:00 0 
+7fac9c000000-7fac9fff9000 rw-p 00000000 00:00 0 
+7fac9fff9000-7faca0000000 ---p 00000000 00:00 0 
+7faca0058000-7faca005b000 ---p 00000000 00:00 0 
+7faca005b000-7faca0091000 rw-p 00000000 00:00 0 
+7faca0091000-7faca00a3000 r--s 02bec000 00:3d 4802081645                 /usr4/cs440/hanzheng/CS440_PA3/lib/pokePA-1.0.2.jar
+7faca00a3000-7faca00a4000 ---p 00000000 00:00 0 
+7faca00a4000-7faca01a4000 rw-p 00000000 00:00 0 
+7faca01a4000-7faca01a5000 ---p 00000000 00:00 0 
+7faca01a5000-7faca02a5000 rw-p 00000000 00:00 0 
+7faca02a5000-7faca02a6000 ---p 00000000 00:00 0 
+7faca02a6000-7faca03a6000 rw-p 00000000 00:00 0 
+7faca03a6000-7faca03a7000 ---p 00000000 00:00 0 
+7faca03a7000-7faca04a7000 rw-p 00000000 00:00 0 
+7faca04a7000-7faca04a8000 ---p 00000000 00:00 0 
+7faca04a8000-7faca05c8000 rw-p 00000000 00:00 0 
+7faca05c8000-7faca0968000 ---p 00000000 00:00 0 
+7faca0968000-7faca0bdb000 r--s 00000000 08:05 262282                     /var/db/nscd/passwd
+7faca0bdb000-7faca0be2000 r-xp 00000000 08:02 955915                     /usr/lib64/librt-2.28.so
+7faca0be2000-7faca0de1000 ---p 00007000 08:02 955915                     /usr/lib64/librt-2.28.so
+7faca0de1000-7faca0de2000 r--p 00006000 08:02 955915                     /usr/lib64/librt-2.28.so
+7faca0de2000-7faca0de3000 rw-p 00007000 08:02 955915                     /usr/lib64/librt-2.28.so
+7faca0de3000-7faca0f64000 r-xp 00000000 08:02 955858                     /usr/lib64/libm-2.28.so
+7faca0f64000-7faca1163000 ---p 00181000 08:02 955858                     /usr/lib64/libm-2.28.so
+7faca1163000-7faca1164000 r--p 00180000 08:02 955858                     /usr/lib64/libm-2.28.so
+7faca1164000-7faca1165000 rw-p 00181000 08:02 955858                     /usr/lib64/libm-2.28.so
+7faca1165000-7faca1e28000 r-xp 00000000 08:02 830584                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/server/libjvm.so
+7faca1e28000-7faca1ec0000 r--p 00cc2000 08:02 830584                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/server/libjvm.so
+7faca1ec0000-7faca1ef1000 rw-p 00d5a000 08:02 830584                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/server/libjvm.so
+7faca1ef1000-7faca1f2d000 rw-p 00000000 00:00 0 
+7faca1f2d000-7faca20fa000 r-xp 00000000 08:02 955854                     /usr/lib64/libc-2.28.so
+7faca20fa000-7faca22fa000 ---p 001cd000 08:02 955854                     /usr/lib64/libc-2.28.so
+7faca22fa000-7faca22fe000 r--p 001cd000 08:02 955854                     /usr/lib64/libc-2.28.so
+7faca22fe000-7faca2300000 rw-p 001d1000 08:02 955854                     /usr/lib64/libc-2.28.so
+7faca2300000-7faca2304000 rw-p 00000000 00:00 0 
+7faca2304000-7faca2307000 r-xp 00000000 08:02 955856                     /usr/lib64/libdl-2.28.so
+7faca2307000-7faca2506000 ---p 00003000 08:02 955856                     /usr/lib64/libdl-2.28.so
+7faca2506000-7faca2507000 r--p 00002000 08:02 955856                     /usr/lib64/libdl-2.28.so
+7faca2507000-7faca2508000 rw-p 00003000 08:02 955856                     /usr/lib64/libdl-2.28.so
+7faca2508000-7faca2523000 r-xp 00000000 08:02 955870                     /usr/lib64/libpthread-2.28.so
+7faca2523000-7faca2722000 ---p 0001b000 08:02 955870                     /usr/lib64/libpthread-2.28.so
+7faca2722000-7faca2723000 r--p 0001a000 08:02 955870                     /usr/lib64/libpthread-2.28.so
+7faca2723000-7faca2724000 rw-p 0001b000 08:02 955870                     /usr/lib64/libpthread-2.28.so
+7faca2724000-7faca2728000 rw-p 00000000 00:00 0 
+7faca2728000-7faca2757000 r-xp 00000000 08:02 951209                     /usr/lib64/ld-2.28.so
+7faca275e000-7faca2762000 r--s 0001b000 00:3d 4802081668                 /usr4/cs440/hanzheng/CS440_PA3/lib/hamcrest-2.2.jar
+7faca2762000-7faca2765000 r--s 0001b000 00:3d 4802081671                 /usr4/cs440/hanzheng/CS440_PA3/lib/argparse4j-0.9.0.jar
+7faca2765000-7faca276d000 r--s 00045000 00:3d 4802081661                 /usr4/cs440/hanzheng/CS440_PA3/lib/junit-4.12.jar
+7faca276d000-7faca2770000 r--s 0001c000 08:02 830718                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/jce.jar
+7faca2770000-7faca27c3000 r--p 00000000 08:02 1181554                    /usr/lib/locale/C.utf8/LC_CTYPE
+7faca27c3000-7faca27c4000 r--p 00000000 08:02 950944                     /usr/lib/locale/en_US.utf8/LC_NUMERIC
+7faca27c4000-7faca27c5000 r--p 00000000 08:02 1182702                    /usr/lib/locale/en_US.utf8/LC_TIME
+7faca27c5000-7faca27c6000 r--p 00000000 08:02 1185100                    /usr/lib/locale/en_US.utf8/LC_MONETARY
+7faca27c6000-7faca27c7000 r--p 00000000 08:02 950942                     /usr/lib/locale/en_US.utf8/LC_MESSAGES/SYS_LC_MESSAGES
+7faca27c7000-7faca27c8000 r--p 00000000 08:02 1052503                    /usr/lib/locale/en_US.utf8/LC_PAPER
+7faca27c8000-7faca27c9000 r--p 00000000 08:02 950943                     /usr/lib/locale/en_US.utf8/LC_NAME
+7faca27c9000-7faca27d0000 r--s 00000000 08:02 920628                     /usr/lib64/gconv/gconv-modules.cache
+7faca27d0000-7faca27eb000 r-xp 00000000 08:02 830581                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/libzip.so
+7faca27eb000-7faca27ec000 r--p 0001a000 08:02 830581                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/libzip.so
+7faca27ec000-7faca27ed000 rw-p 0001b000 08:02 830581                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/libzip.so
+7faca27ed000-7faca27f5000 rw-s 00000000 08:07 299                        /tmp/hsperfdata_hanzheng/4126331
+7faca27f5000-7faca2820000 r-xp 00000000 08:02 830548                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/libjava.so
+7faca2820000-7faca2821000 r--p 0002a000 08:02 830548                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/libjava.so
+7faca2821000-7faca2823000 rw-p 0002b000 08:02 830548                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/libjava.so
+7faca2823000-7faca2824000 ---p 00000000 00:00 0 
+7faca2824000-7faca2827000 ---p 00000000 00:00 0 
+7faca2827000-7faca2926000 rw-p 00000000 00:00 0 
+7faca2926000-7faca293d000 r-xp 00000000 08:02 830514                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/jli/libjli.so
+7faca293d000-7faca293e000 r--p 00016000 08:02 830514                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/jli/libjli.so
+7faca293e000-7faca293f000 rw-p 00017000 08:02 830514                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/jli/libjli.so
+7faca293f000-7faca2940000 r--p 00000000 08:02 1185097                    /usr/lib/locale/en_US.utf8/LC_ADDRESS
+7faca2940000-7faca2941000 r--p 00000000 08:02 1185101                    /usr/lib/locale/en_US.utf8/LC_TELEPHONE
+7faca2941000-7faca2942000 r--p 00000000 08:02 1185099                    /usr/lib/locale/en_US.utf8/LC_MEASUREMENT
+7faca2942000-7faca2943000 r--p 00000000 08:02 1185098                    /usr/lib/locale/en_US.utf8/LC_IDENTIFICATION
+7faca2943000-7faca2944000 rw-p 00000000 00:00 0 
+7faca2944000-7faca2945000 r--p 00000000 00:00 0 
+7faca2945000-7faca2952000 r-xp 00000000 08:02 830580                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/libverify.so
+7faca2952000-7faca2954000 r--p 0000c000 08:02 830580                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/libverify.so
+7faca2954000-7faca2955000 rw-p 0000e000 08:02 830580                     /usr/lib/jvm/jdk-1.8-oracle-x64/jre/lib/amd64/libverify.so
+7faca2955000-7faca2957000 rw-p 00000000 00:00 0 
+7faca2957000-7faca2958000 r--p 0002f000 08:02 951209                     /usr/lib64/ld-2.28.so
+7faca2958000-7faca295a000 rw-p 00030000 08:02 951209                     /usr/lib64/ld-2.28.so
+7ffd88fae000-7ffd88fcf000 rw-p 00000000 00:00 0                          [stack]
+7ffd88fd2000-7ffd88fd6000 r--p 00000000 00:00 0                          [vvar]
+7ffd88fd6000-7ffd88fd8000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+java_command: edu.bu.pas.pokemon.Train -p 100 -t 10 -v 10 src.pas.pokemon.agents.PolicyAgent edu.bu.pas.pokemon.agents.RandomAgent
+java_class_path (initial): ./lib/junit-4.12.jar:./lib/argparse4j-0.9.0.jar:./lib/pokePA-1.0.2.jar:./lib/hamcrest-2.2.jar:.
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/java/default/jre/bin:/usr/java/default/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/dell/srvadmin/bin:/opt/TurboVNC/bin:/usr4/cs440/hanzheng/bin:.
+SHELL=/bin/bash
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xabac10], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xabac10], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0xabac10], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x90da80], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x90da80], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0xabac10], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x90dae0], sa_mask[0]=00000000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x90e140], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x90e140], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x90e140], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x90e140], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:AlmaLinux release 8.10 (Cerulean Leopard)
+
+uname:Linux 4.18.0-553.70.1.el8_10.x86_64 #1 SMP Mon Aug 18 04:41:49 EDT 2025 x86_64
+libc:glibc 2.28 NPTL 2.28 
+rlimit: STACK 8192k, CORE 0k, NPROC 1024, NOFILE 262144, AS infinity
+load average:6.25 4.33 4.28
+
+/proc/meminfo:
+MemTotal:       262184448 kB
+MemFree:         6879984 kB
+MemAvailable:   150161620 kB
+Buffers:          261640 kB
+Cached:         110739756 kB
+SwapCached:      1394908 kB
+Active:         38900636 kB
+Inactive:       172473840 kB
+Active(anon):    1850580 kB
+Inactive(anon): 99941740 kB
+Active(file):   37050056 kB
+Inactive(file): 72532100 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:       8388604 kB
+SwapFree:              0 kB
+Dirty:           3000332 kB
+Writeback:       3975000 kB
+AnonPages:      98929576 kB
+Mapped:          3119728 kB
+Shmem:           1422412 kB
+KReclaimable:   35639932 kB
+Slab:           40568676 kB
+SReclaimable:   35639932 kB
+SUnreclaim:      4928744 kB
+KernelStack:      134464 kB
+PageTables:      1403756 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    139480828 kB
+Committed_AS:   151991100 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      615540 kB
+VmallocChunk:          0 kB
+Percpu:           214400 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:  26011648 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+FileHugePages:         0 kB
+FilePmdMapped:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:    20275208 kB
+DirectMap2M:    242534400 kB
+DirectMap1G:     6291456 kB
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-31
+cpu_memory_nodes: 0-3
+active_processor_count: 8
+cpu_quota: 800000
+cpu_period: 100000
+cpu_shares: no shares
+memory_limit_in_bytes: 52428800 k
+memory_and_swap_limit_in_bytes: unlimited
+memory_soft_limit_in_bytes: unlimited
+memory_usage_in_bytes: 9155512 k
+memory_max_usage_in_bytes: 9155516 k
+kernel_memory_usage_in_bytes: 39608 k
+kernel_memory_max_usage_in_bytes: unlimited
+kernel_memory_limit_in_bytes: 39612 k
+maximum number of tasks: unlimited
+current number of tasks: 24
+
+
+CPU:total 32 (initial active 8) (16 cores per cpu, 2 threads per core) family 6 model 85 stepping 7, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 0
+cpu cores	: 16
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2037.470
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 0
+cpu cores	: 16
+apicid		: 32
+initial apicid	: 32
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 3125.151
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 7
+cpu cores	: 16
+apicid		: 14
+initial apicid	: 14
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 7
+cpu cores	: 16
+apicid		: 46
+initial apicid	: 46
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 4
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 3499.999
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 1
+cpu cores	: 16
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 5
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 3499.998
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 1
+cpu cores	: 16
+apicid		: 34
+initial apicid	: 34
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 6
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 6
+cpu cores	: 16
+apicid		: 12
+initial apicid	: 12
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 7
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2727.244
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 6
+cpu cores	: 16
+apicid		: 44
+initial apicid	: 44
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 8
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 1312.963
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 2
+cpu cores	: 16
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 9
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 2
+cpu cores	: 16
+apicid		: 36
+initial apicid	: 36
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 10
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 3048.371
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 5
+cpu cores	: 16
+apicid		: 10
+initial apicid	: 10
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 11
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 5
+cpu cores	: 16
+apicid		: 42
+initial apicid	: 42
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 12
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 3492.281
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 3
+cpu cores	: 16
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 13
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2991.282
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 3
+cpu cores	: 16
+apicid		: 38
+initial apicid	: 38
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 14
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 4
+cpu cores	: 16
+apicid		: 8
+initial apicid	: 8
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 15
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 4
+cpu cores	: 16
+apicid		: 40
+initial apicid	: 40
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 16
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2844.020
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 8
+cpu cores	: 16
+apicid		: 16
+initial apicid	: 16
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 17
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 1489.108
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 8
+cpu cores	: 16
+apicid		: 48
+initial apicid	: 48
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 18
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 3312.955
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 15
+cpu cores	: 16
+apicid		: 30
+initial apicid	: 30
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 19
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 15
+cpu cores	: 16
+apicid		: 62
+initial apicid	: 62
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 20
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 9
+cpu cores	: 16
+apicid		: 18
+initial apicid	: 18
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 21
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 1331.483
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 9
+cpu cores	: 16
+apicid		: 50
+initial apicid	: 50
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 22
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 3499.999
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 14
+cpu cores	: 16
+apicid		: 28
+initial apicid	: 28
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 23
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 14
+cpu cores	: 16
+apicid		: 60
+initial apicid	: 60
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 24
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 10
+cpu cores	: 16
+apicid		: 20
+initial apicid	: 20
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 25
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 10
+cpu cores	: 16
+apicid		: 52
+initial apicid	: 52
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 26
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 13
+cpu cores	: 16
+apicid		: 26
+initial apicid	: 26
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 27
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 13
+cpu cores	: 16
+apicid		: 58
+initial apicid	: 58
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 28
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 11
+cpu cores	: 16
+apicid		: 22
+initial apicid	: 22
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 29
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2266.038
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 11
+cpu cores	: 16
+apicid		: 54
+initial apicid	: 54
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 30
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2800.000
+cache size	: 22528 KB
+physical id	: 0
+siblings	: 16
+core id		: 12
+cpu cores	: 16
+apicid		: 24
+initial apicid	: 24
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 31
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Gold 6242 CPU @ 2.80GHz
+stepping	: 7
+microcode	: 0x5003901
+cpu MHz		: 2242.622
+cache size	: 22528 KB
+physical id	: 1
+siblings	: 16
+core id		: 12
+cpu cores	: 16
+apicid		: 56
+initial apicid	: 56
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb gds bhi
+bogomips	: 5605.54
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 52428800k(43273288k free), swap 8388604k(0k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.411-b09) for linux-amd64 JRE (1.8.0_411-b09), built on Mar 13 2024 07:23:54 by "java_re" with gcc 11.2.0
+
+time: Fri Dec  5 20:56:20 2025
+timezone: EST
+elapsed time: 37.334041 seconds (0d 0h 0m 37s)
+
