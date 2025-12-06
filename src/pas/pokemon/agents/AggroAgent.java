@@ -1,4 +1,4 @@
-package edu.bu.pas.pokemon.agents;
+package src.pas.pokemon.agents;
 
 
 // SYSTEM IMPORTS

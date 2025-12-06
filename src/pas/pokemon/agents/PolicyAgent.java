@@ -137,17 +137,6 @@ public class PolicyAgent
             TeamView myTeam = this.getMyTeamView(view);
             PokemonView active = myTeam.getActivePokemonView();
             List<MoveView> moves = active.getAvailableMoves();
-<<<<<<< HEAD
-
-            if(moves==null || moves.isEmpty())
-                return null;
-
-            return moves.get((int)(Math.random() * moves.size()));
-        }
-
-
-=======
->>>>>>> a1acc7999bfd866556845742d557e5d744324837
 
             if(moves==null || moves.isEmpty())
                 return null;
@@ -169,18 +158,13 @@ public class PolicyAgent
             return moves.get(r);
         }
 
-        int r = (int)(Math.random() * moves.size());
-        return moves.get(r);
+        return this.argmax(view);
     }
 
     @Override
     public void afterGameEnds(BattleView view)
     {
-<<<<<<< HEAD
-        System.err.println("[DEBUG] afterGameEnds() called — game finished!");
-=======
         System.out.println("[DEBUG] afterGameEnds() called — game finished!");
->>>>>>> a1acc7999bfd866556845742d557e5d744324837
         gameCount++;
         double myHP = totalHPFraction(this.getMyTeamView(view));
         double oppHP = totalHPFraction(getOpponentTeamView(view));

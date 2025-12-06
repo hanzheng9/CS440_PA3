@@ -179,6 +179,7 @@ public class Train
                         }
 
                         // do afterGameEnds for every agent
+			System.err.println("[TRAIN] Battle finished — calling afterGameEnds()")
                         agent.afterGameEnds(battle.getView());
                         enemyAgent.afterGameEnds(battle.getView());
 
@@ -403,14 +404,6 @@ public class Train
     {
         // overwrite stdout cause there will be a TON of printouts if you don't
         PrintStream out = System.out;
-        System.setOut(new PrintStream(out)
-            {
-                @Override
-                public void println(String message) {}
-                @Override
-                public void print(String message) {}
-            }
-        );
 
         ArgumentParser parser = ArgumentParsers.newFor("Train").build()
             .defaultHelp(true)
