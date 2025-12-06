@@ -53,13 +53,18 @@ public class PolicyAgent
         // make sure you call this, this will call your initModel() and set a field
         // AND if the command line argument "inFile" is present will attempt to set
         // your model with the contents of that file.
+        this.initializeSenses(args);
         super.initialize(args);
 
         // what senses will your neural network have?
-        this.initializeSenses(args);
+        //this.initializeSenses(args);
 
         // do what you want just don't expect custom command line options to be available
         // when I'm testing your code
+
+        System.out.println("[PolicyAgent] initialize() called.");
+        System.out.println("[PolicyAgent] Log file will be: " +
+            new java.io.File("training_stats.log").getAbsolutePath());
     }
 
     @Override
@@ -127,8 +132,19 @@ public class PolicyAgent
 
         // HOW that randomness works and how often you do it are up to you, but it *will* affect the quality of your
         // learned model whether you do it or not!
+        if(this.getSensorArray()==null) 
+        {
+            TeamView myTeam = this.getMyTeamView(view);
+            PokemonView active = myTeam.getActivePokemonView();
+            List<MoveView> moves = active.getAvailableMoves();
 
-        double epsilon = 0.05;
+            if(moves==null || moves.isEmpty())
+                return null;
+
+            return moves.get((int)(Math.random() * moves.size()));
+        }
+
+        double epsilon = 0.2;
         TeamView myTeam = this.getMyTeamView(view);
         PokemonView active = myTeam.getActivePokemonView();
         List<MoveView> moves = active.getAvailableMoves();
@@ -148,6 +164,7 @@ public class PolicyAgent
     @Override
     public void afterGameEnds(BattleView view)
     {
+        System.out.println("[DEBUG] afterGameEnds() called — game finished!");
         gameCount++;
         double myHP = totalHPFraction(this.getMyTeamView(view));
         double oppHP = totalHPFraction(getOpponentTeamView(view));
