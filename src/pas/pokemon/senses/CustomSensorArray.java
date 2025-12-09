@@ -316,25 +316,36 @@ public class CustomSensorArray
     {
         if(moveType==null || targetType==null)
             return 1.0;
-        if(moveType==Type.FIRE && targetType==Type.GRASS) 
+
+        if(moveType==Type.FIRE && targetType==Type.GRASS)
             return 2.0;
-        if(moveType==Type.WATER && targetType==Type.FIRE) 
+        if(moveType==Type.WATER && targetType==Type.FIRE)
             return 2.0;
-        if(moveType==Type.GRASS && targetType==Type.WATER) 
+        if(moveType==Type.GRASS && targetType==Type.WATER)
             return 2.0;
-        if(moveType==Type.FIGHTING && targetType==Type.NORMAL) 
+        if(moveType==Type.FIGHTING && targetType==Type.NORMAL)
+            return 2.0;
+        if(moveType==Type.GRASS && targetType==Type.ROCK)
+            return 2.0;
+        if(moveType==Type.GRASS && targetType==Type.GROUND)
+            return 2.0;
+        if(moveType==Type.WATER && targetType==Type.ROCK)
+            return 2.0;
+        if(moveType==Type.WATER && targetType==Type.GROUND)
             return 2.0;
 
-        if(moveType==Type.GRASS && targetType==Type.FIRE) 
+        if(moveType==Type.GRASS && targetType==Type.FIRE)
             return 0.5;
-        if(moveType==Type.FIRE && targetType==Type.WATER) 
+        if(moveType==Type.FIRE && targetType==Type.WATER)
             return 0.5;
-        if(moveType==Type.WATER && targetType==Type.GRASS) 
+        if(moveType==Type.WATER && targetType==Type.GRASS)
+            return 0.5;
+        if(moveType==Type.NORMAL && targetType==Type.ROCK)
             return 0.5;
 
-        if(moveType==Type.NORMAL && targetType==Type.GHOST) 
+        if(moveType==Type.NORMAL && targetType==Type.GHOST)
             return 0.0;
-        if(moveType==Type.FIGHTING && targetType==Type.GHOST) 
+        if(moveType==Type.FIGHTING && targetType==Type.GHOST)
             return 0.0;
 
         return 1.0;
