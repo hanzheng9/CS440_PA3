@@ -4,6 +4,7 @@ package src.pas.pokemon.agents;
 // SYSTEM IMPORTS
 import net.sourceforge.argparse4j.inf.Namespace;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.bu.pas.pokemon.agents.NeuralQAgent;
@@ -30,6 +31,7 @@ public class PolicyAgent
     extends NeuralQAgent
 {
     private int gameCount = 0;
+    private double epsilon = 0.2;
 
     public PolicyAgent()
     {
@@ -179,7 +181,7 @@ public class PolicyAgent
             if(moves==null || moves.isEmpty())
                 return null;
 
-            return moves.get((int)(Math.random() * moves.size()));
+            return choosePreferredRandomMove(view);
         }
 
         TeamView myTeam = this.getMyTeamView(view);
@@ -188,26 +190,93 @@ public class PolicyAgent
         if(moves==null || moves.isEmpty())
             return null;
 
-        if(this.getSensorArray()==null)
-        {
-            int r = (int)(Math.random() * moves.size());
-            return moves.get(r);
-        }
-
-        double epsilon = 0.2;  
+        List<MoveView> candidateMoves = getPreferredMoves(moves);
 
         if(Math.random()<epsilon)
         {
-            int r = (int)(Math.random() * moves.size());
-            return moves.get(r);
+            int r = (int)(Math.random() * candidateMoves.size());
+            return candidateMoves.get(r);
         }
 
-        MoveView bestMove = this.argmax(view);
-        if(bestMove!=null)
-            return bestMove;
+        MoveView greedy = this.argmax(view);
 
-        int r = (int)(Math.random() * moves.size());
-        return moves.get(r);
+        if(candidateMoves.contains(greedy))
+            return greedy;
+
+        MoveView bestPreferred = pickStrongest(candidateMoves);
+        if(bestPreferred!=null)
+            return bestPreferred;
+
+        int r = (int)(Math.random() * candidateMoves.size());
+        return candidateMoves.get(r);
+    }
+
+    private List<MoveView> getPreferredMoves(List<MoveView> moves)
+    {
+        List<MoveView> grassDamaging = new ArrayList<>();
+        List<MoveView> damaging = new ArrayList<>();
+
+        for(MoveView move: moves)
+        {
+            if(move==null)
+                continue;
+
+            if(move.getCategory()!=Category.STATUS)
+                damaging.add(move);
+
+            if(move.getCategory()!=Category.STATUS && move.getType()==Type.GRASS)
+                grassDamaging.add(move);
+        }
+
+        if(!grassDamaging.isEmpty())
+            return grassDamaging;    
+        if(!damaging.isEmpty())
+            return damaging;          
+        return moves;                 
+    }
+
+   private MoveView pickStrongest(List<MoveView> moves)
+    {
+        MoveView best = null;
+        int bestPower = -1;
+
+        for(MoveView move: moves)
+        {
+            if(move==null)
+                continue;
+            Integer p = move.getPower();
+
+            if(p==null)
+                continue;
+            if(p>bestPower)
+            {
+                bestPower = p;
+                best = move;
+            }
+        }
+        if(best!=null)
+            return best;
+
+        for(MoveView move: moves)
+        {
+            if(move!=null)
+                return move;
+        }
+        return null;
+    }
+
+    private MoveView choosePreferredRandomMove(BattleView view)
+    {
+        TeamView myTeam = this.getMyTeamView(view);
+        PokemonView active = myTeam.getActivePokemonView();
+        List<MoveView> moves = active.getAvailableMoves();
+        if(moves==null || moves.isEmpty())
+            return null;
+
+        List<MoveView> preferred = getPreferredMoves(moves);
+        int r = (int)(Math.random() * preferred.size());
+        return preferred.get(r);
+
     }
 
     @Override
