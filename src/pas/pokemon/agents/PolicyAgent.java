@@ -4,7 +4,6 @@ package src.pas.pokemon.agents;
 // SYSTEM IMPORTS
 import net.sourceforge.argparse4j.inf.Namespace;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.bu.pas.pokemon.agents.NeuralQAgent;
@@ -20,7 +19,6 @@ import edu.bu.pas.pokemon.nn.Model;
 import edu.bu.pas.pokemon.nn.models.Sequential;
 import edu.bu.pas.pokemon.nn.layers.Dense; // fully connected layer
 import edu.bu.pas.pokemon.nn.layers.Tanh;
-import edu.bu.pas.pokemon.core.Move.Category;
 
 
 // JAVA PROJECT IMPORTS
@@ -30,8 +28,7 @@ import src.pas.pokemon.senses.CustomSensorArray;
 public class PolicyAgent
     extends NeuralQAgent
 {
-    private int gameCount = 0;
-    private double epsilon = 0.2;
+    private int moveCount = 0;
 
     public PolicyAgent()
     {
@@ -67,11 +64,9 @@ public class PolicyAgent
         // TODO: create your neural network
 
         Sequential qFunction = new Sequential();
-        qFunction.add(new Dense(64, 32));
+        qFunction.add(new Dense(64, 32)); 
         qFunction.add(new Tanh());
-        qFunction.add(new Dense(32, 16));
-        qFunction.add(new Tanh());
-        qFunction.add(new Dense(16, 1));
+        qFunction.add(new Dense(32, 1));  
 
         return qFunction;
     }
@@ -80,27 +75,35 @@ public class PolicyAgent
     public Integer chooseNextPokemon(BattleView view)
     {
         TeamView myTeam = this.getMyTeamView(view);
+        if(myTeam==null)
+            return null;
+        PokemonView active = myTeam.getActivePokemonView();
+        if(active!=null && !active.hasFainted())
+            return null;  
         TeamView oppTeam = this.getOpponentTeamView(view);
-        PokemonView oppActive = oppTeam.getActivePokemonView();
+        PokemonView oppActive = null;
+        if(oppTeam!=null)
+            oppActive = oppTeam.getActivePokemonView();
         int bestIdx = -1;
         double bestScore = -999.0;
 
         for(int i=0; i<myTeam.size(); i++)
         {
             PokemonView pokemon = myTeam.getPokemonView(i);
-            if(pokemon.hasFainted())
+            if(pokemon==null || pokemon.hasFainted())
                 continue;
-            double hpScore = pokemon.getCurrentStat(Stat.HP)/(double)pokemon.getInitialStat(Stat.HP);
-            double typeScore = typeEffectivenessScore(pokemon, oppActive);
+            double hpScore = pokemon.getCurrentStat(Stat.HP)/(double) pokemon.getInitialStat(Stat.HP);
+            double typeScore = 0.0;
+            if(oppActive!=null) 
+                typeScore = typeEffectivenessScore(pokemon, oppActive);
             double speedScore = 0.0;
-
-            if(pokemon.getCurrentStat(Stat.SPD)>oppActive.getCurrentStat(Stat.SPD))
+            if(oppActive!=null && pokemon.getCurrentStat(Stat.SPD)>oppActive.getCurrentStat(Stat.SPD))
                 speedScore = 0.2;
             double statusPenalty = 0.0;
-            if(pokemon.getNonVolatileStatus() != null)
+            if(pokemon.getNonVolatileStatus()!=null)
                 statusPenalty = -0.3;
             double lowHpPenalty = 0.0;
-            if(hpScore < 0.30)
+            if(hpScore<0.30)
                 lowHpPenalty = -0.5;
             double totalScore = hpScore + typeScore + speedScore + statusPenalty + lowHpPenalty;
 
@@ -113,8 +116,8 @@ public class PolicyAgent
 
         if(bestIdx>=0)
             return bestIdx;
-        else
-            return null;
+
+        return null;
     }
 
     private double typeEffectivenessScore(PokemonView myPokemon, PokemonView oppPokemon)
@@ -181,108 +184,63 @@ public class PolicyAgent
             if(moves==null || moves.isEmpty())
                 return null;
 
-            return choosePreferredRandomMove(view);
+            return moves.get((int)(Math.random() * moves.size()));
         }
+
+        moveCount++;
+        double epsilon = 0.3 * Math.exp(-0.0004 * moveCount);
+        if(epsilon<0.05)
+            epsilon = 0.05;
 
         TeamView myTeam = this.getMyTeamView(view);
         PokemonView active = myTeam.getActivePokemonView();
         List<MoveView> moves = active.getAvailableMoves();
+
         if(moves==null || moves.isEmpty())
             return null;
-
-        List<MoveView> candidateMoves = getPreferredMoves(moves);
 
         if(Math.random()<epsilon)
         {
-            int r = (int)(Math.random() * candidateMoves.size());
-            return candidateMoves.get(r);
-        }
+            PokemonView oppActive = this.getOpponentTeamView(view).getActivePokemonView();
+            MoveView bestMove = null;
+            double bestScore = -1e9;
 
-        MoveView greedy = this.argmax(view);
-
-        if(candidateMoves.contains(greedy))
-            return greedy;
-
-        MoveView bestPreferred = pickStrongest(candidateMoves);
-        if(bestPreferred!=null)
-            return bestPreferred;
-
-        int r = (int)(Math.random() * candidateMoves.size());
-        return candidateMoves.get(r);
-    }
-
-    private List<MoveView> getPreferredMoves(List<MoveView> moves)
-    {
-        List<MoveView> grassDamaging = new ArrayList<>();
-        List<MoveView> damaging = new ArrayList<>();
-
-        for(MoveView move: moves)
-        {
-            if(move==null)
-                continue;
-
-            if(move.getCategory()!=Category.STATUS)
-                damaging.add(move);
-
-            if(move.getCategory()!=Category.STATUS && move.getType()==Type.GRASS)
-                grassDamaging.add(move);
-        }
-
-        if(!grassDamaging.isEmpty())
-            return grassDamaging;    
-        if(!damaging.isEmpty())
-            return damaging;          
-        return moves;                 
-    }
-
-   private MoveView pickStrongest(List<MoveView> moves)
-    {
-        MoveView best = null;
-        int bestPower = -1;
-
-        for(MoveView move: moves)
-        {
-            if(move==null)
-                continue;
-            Integer p = move.getPower();
-
-            if(p==null)
-                continue;
-            if(p>bestPower)
+            for(MoveView move: moves)
             {
-                bestPower = p;
-                best = move;
+                double score = 0.0;
+                score += 0.3 * CustomSensorArray.stab(active, move);
+                score += 0.5 * CustomSensorArray.superEffective(oppActive, move);
+                score -= 0.4 * CustomSensorArray.notVeryEffective(oppActive, move);
+
+                if(move.getPower()!=null)
+                    score += 0.002 * move.getPower();
+
+                if(move.getAccuracy()!=null)
+                    score += 0.001 * move.getAccuracy();
+
+                score += 0.0001 * Math.random();
+
+                if(score>bestScore)
+                {
+                    bestScore = score;
+                    bestMove = move;
+                }
             }
+
+            if(bestMove!=null)
+                return bestMove;
+
+            int r = (int)(Math.random() * moves.size());
+            return moves.get(r);
         }
-        if(best!=null)
-            return best;
 
-        for(MoveView move: moves)
-        {
-            if(move!=null)
-                return move;
-        }
-        return null;
-    }
-
-    private MoveView choosePreferredRandomMove(BattleView view)
-    {
-        TeamView myTeam = this.getMyTeamView(view);
-        PokemonView active = myTeam.getActivePokemonView();
-        List<MoveView> moves = active.getAvailableMoves();
-        if(moves==null || moves.isEmpty())
-            return null;
-
-        List<MoveView> preferred = getPreferredMoves(moves);
-        int r = (int)(Math.random() * preferred.size());
-        return preferred.get(r);
-
+        return this.argmax(view);
     }
 
     @Override
     public void afterGameEnds(BattleView view)
     {
-        gameCount++;
+        moveCount = 0;
     }
 
     public TeamView getOpponentTeamView(BattleView view)
@@ -292,5 +250,4 @@ public class PolicyAgent
         return view.getTeamView(oppIdx);
     }
 }
-
 
